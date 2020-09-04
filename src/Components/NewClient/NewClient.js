@@ -33,16 +33,11 @@ export class NewClient extends Component {
          //console.log(data)
         instance.post('http://localhost:3012/clients', this.state)
         .then(response => {
-            console.log(response) 
+            console.log(response);
+            window.location.href = "http://localhost:3000/Allclients";
         }).catch(error =>{
             console.log(error)
         })
-        /*newclient.post('http://localhost:3012/', this.state)
-        .then(response => {
-            console.log(response) 
-        }).catch(error =>{
-            console.log(error)
-        })*/
     }
 
     render() {
@@ -57,19 +52,19 @@ export class NewClient extends Component {
                                 <h2 className="title">Nouveau Client</h2>
                                 <form onSubmit={this.submitHandler}>
                                     <div className="input-group">
-                                        <input className="input--style-3" type="text" placeholder="Nom" name="name" value={name} onChange={this.onChange} />
+                                        <input className="input--style-3" type="text" placeholder="Nom" name="name" value={name} onChange={this.onChange} required/>
                                     </div>
                                     <div className="input-group">
-                                        <input className="input--style-3" type="text" placeholder="Prénom" name="first_name"  value={first_name} onChange={this.onChange} />
+                                        <input className="input--style-3" type="text" placeholder="Prénom" name="first_name"  value={first_name} onChange={this.onChange}  required/>
                                     </div>
                                     <div className="input-group">
-                                        <input className="input--style-3" type="text" placeholder="Adresse" name="address"  value={address} onChange={this.onChange} />
+                                        <input className="input--style-3" type="text" placeholder="Adresse" name="address"  value={address} onChange={this.onChange} required/>
                                     </div>
                                     <div className="input-group">
                                         <input className="input--style-3" type="email" placeholder="Email" name="email" value={email} onChange={this.onChange} required />
                                     </div>
                                     <div className="input-group">
-                                        <input className="input--style-3" type="text" placeholder="Phone" name="phone" value={phone} onChange={this.onChange} />
+                                        <input className="input--style-3" type="text" placeholder="Phone" name="phone" value={phone} onChange={this.onChange} required/>
                                     </div>
                                     <div className="p-t-10">
                                         <button className="btn btn--pill btn--green" type="submit">Créer le client</button>

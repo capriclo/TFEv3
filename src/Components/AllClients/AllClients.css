@@ -125,7 +125,7 @@ body{
 .search-btn{
     border: none;
     border-radius: 1.5rem;
-    width: 20%;
+    width: 10%;
     height: 40px ;
     padding: 1%;
     font-weight: 500;
@@ -136,12 +136,13 @@ body{
 
 .input-search{
     border-radius: 10px;
+    margin-left: 5%;
 }
 
 .archive-client-btn{
     border: none;
     border-radius: 1.5rem;
-    width: 100%;
+    width: 95%;
     height: 40px ;
     padding: 1%;
     font-weight: 500;
@@ -149,6 +150,7 @@ body{
     color: white;
     cursor: pointer;
     text-align: center;
+    margin-right: 2%;
 
 }
 
@@ -159,4 +161,8 @@ body{
 
 .client_button{
     margin-top:2%;
+}
+
+.btn_all_clients{
+    margin-right: 10%;
 }

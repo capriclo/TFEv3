@@ -2,10 +2,60 @@ import React, { Component } from 'react';
 import './Client.css';
 
 export class Client extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          error: null,
+          isLoaded: false,
+          client: []
+        };
+      }
+
+      componentDidMount() {
+        this.dbcall();
+      }
+
+      componentDidUpdate(){
+           this.dbcall();
+      }
+
+      dbcall = e =>{
+        var url = document.URL;
+        const quote = "\"";  
+        var true_url = "" +quote +url +quote
+        console.log(true_url);
+        var test2 =  true_url.substr(-2,1)
+        console.log(test2)
+        fetch("http://localhost:3014/clients/" +test2)
+          .then(res => res.json())
+          .then(
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                client: result.client
+              });
+              console.log(this.state);
+              console.log(this.state.client[0].Name);
+
+            },
+            // Remarque : il est important de traiter les erreurs ici
+            // au lieu d'utiliser un bloc catch(), pour ne pas passer à la trappe
+            // des exceptions provenant de réels bugs du composant.
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              });
+            }
+          )
+      }
+       
+
     render() {
         return (
             <div>
                 <div className="container emp-profile">
+                {this.state.client.map(client => 
                     <form method="post">
                         <div className="row">
                             <div className="col-md-4">
@@ -15,17 +65,16 @@ export class Client extends Component {
                             </div>
                             <div className="col-md-6 client_id">
                                 <div className="profile-head">
-                                            <h1>
-                                                Client 12645
-                                            </h1>
-                                            <h4>
-                                                Points de fidélité : <span>175</span>
-                                            </h4>
+                                    <h1>
+                                        Client {client.IDclients}
+                                    </h1>
+                                    <h4>
+                                        Points de fidélité : <span>175</span>
+                                    </h4>
                                 </div>
                             </div>
-                            <div className="col-md-2">
+                            <div className="col-md-2 client_button">
                                 <a href="/archived_clients"><input className="archive-client-btn aqua-gradient" name="btnAddMore" value="Archiver le client"/></a>
-                                <a href="/new_client"><input className="archive-client-btn btn-new-client aqua-gradient" name="btnAddMore" value="Nouveau client"/></a>
                             </div>
                         </div>
                         <div className="row client_data">
@@ -37,13 +86,13 @@ export class Client extends Component {
                                                 <label>Nom</label>
                                             </div>
                                             <div className="caracteristics">
-                                                <p>Rédoméro</p>
+                                                <p>{client.Name}</p>
                                             </div>
                                             <div className="caracteristicsv2">
                                                 <label>ID</label>
                                             </div>
                                             <div className="caracteristicsv2">
-                                                <p>12645</p>
+                                                <p>{client.IDclients}</p>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -51,13 +100,13 @@ export class Client extends Component {
                                                 <label>Prénom</label>
                                             </div>
                                             <div className="caracteristics">
-                                                <p>Victoria</p>
+                                                <p>{client.FirstName}</p>
                                             </div>
                                             <div className="caracteristicsv2">
                                                 <label>Email</label>
                                             </div>
                                             <div className="caracteristicsv2">
-                                                <p>loris.hubin@gmail.com</p>
+                                                <p>{client.Email}</p>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -65,13 +114,13 @@ export class Client extends Component {
                                                 <label>Adresse</label>
                                             </div>
                                             <div className="caracteristics">
-                                                <p>Rue Jacque Prévert n°11 7000 Mons</p>
+                                                <p>{client.Address}</p>
                                             </div>
                                             <div className="caracteristicsv2">
                                                 <label>Téléphone</label>
                                             </div>
                                             <div className="caracteristicsv2">
-                                                <p>+33654589124</p>
+                                                <p>{client.Phone}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -79,6 +128,7 @@ export class Client extends Component {
                             </div>
                         </div>
                     </form>
+                     )}
                     <div>
                         <form className="form-inline md-form mr-auto mb-4">
                             <input className="form-control mr-sm-2 input-search" type="text" placeholder="Search" aria-label="Search" />

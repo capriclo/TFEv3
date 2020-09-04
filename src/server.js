@@ -24,17 +24,7 @@ connection.connect(function(err) {
     }
   
     console.log('Connected to the MySQL server.');
-  });
-  //Query for all clients
-  connection.query("SELECT * FROM clients", function (err, result) {
-
-    if (err) throw err;
-    console.log(result);
-    allclients = result;
-    console.log(allclients);
-
-  });
-  console.log('Bonjour');
+  });  
 
   // imports route api clients 
     const clientsRoutes = require ('./api/routes/clients')
@@ -43,15 +33,6 @@ connection.connect(function(err) {
     newclient.use(morgan('dev'));
     newclient.use(bodyParser.urlencoded({extended: false}));
     newclient.use(bodyParser.json());
-
-   /* newclient.use((req, res, next) => {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Headers', '*');
-      if(req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH ');
-        res.status(200).json({});
-      }
-    })*/
 
     // Routes whitch should handle request
     newclient.use('/clients', clientsRoutes)
@@ -89,14 +70,11 @@ connection.connect(function(err) {
     });
 
     newclient.listen(3012);
-  /*newclient.use((req, res, next) => {
-    res.status(200).json(allclients);
-});*/
 
 
-//data for server
-const port = process.env.port || 3014;
+    //data for server
+    const port = process.env.port || 3014;
 
-const server = http.createServer(newclient);
+    const server = http.createServer(newclient);
 
-server.listen(port);
+    server.listen(port);

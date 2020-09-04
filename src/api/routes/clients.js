@@ -1,11 +1,39 @@
 const express = require('express');
 const router = express.Router();
-//let mysql = require('mysql');
+let mysql = require('mysql');
+
+let allclients;
+let client;
+
+let connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'Root123*',
+    database: 'tfe'
+});
+
+connection.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+  
+    console.log('Connected to the MySQL server.');
+  });
+
 
 router.get('/', (req, res, next)=> {
+    connection.query("SELECT * FROM clients", function (err, result) {
+
+        if (err) throw err;
+        console.log(result);
+        allclients = result;
+    
+      });
+      console.log(allclients);
     res.status(200).json({
-        message : 'Handling GET request to /products'
+        clients : allclients
     })
+    console.log(allclients);
 })
 
 router.post('/', (req, res, next)=> {
@@ -21,24 +49,33 @@ router.post('/', (req, res, next)=> {
         createdClient: client 
     })
 
-    console.log(client);
+    var data = [client.name, client.first_name, client.address, client.email, client.phone]
+
+    console.log(data);
+
+    connection.query("INSERT INTO clients SET Name=?, FirstName=?, Address=?, Email=?, Phone=? ", data, (err, client, field)=>{
+        if (err) {
+            return console.error('error: ' + err.message);
+          }
+
+    })
+
+
     
 })
 
 router.get('/:clientID', (req, res, next) => {
     const id = req.params.clientID;
+    var sql = 'SELECT * FROM clients WHERE IDclients = ' +id;
+        connection.query(sql, function (err, result) {
 
-    if (id === 'special'){
+            if (err) throw err;
+            client = result;
+          });
         res.status(200).json({
-            message : 'You discovert the special ID',
-            id : id 
-        });
-    }else{
-        res.status(200).json({
-            message : 'You passed an ID'
-            
-        });
-    }
+            message : 'Bienvenue',
+            client : client
+        })
 })
 
 router.patch('/:clientID', (req, res, next) => {

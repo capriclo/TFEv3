@@ -15,7 +15,7 @@ export class Navbar extends Component {
                             <a className="nav-link" href="/backet">Caisse <span className="sr-only">(current)</span></a>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/clients">Clients</NavLink>
+                            <NavLink className="nav-link" to="/Allclients">Clients</NavLink>
                         </li>
                         <li className="nav-item dropdown">
                             <NavLink className="nav-link dropdown-toggle" to="/articles" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
