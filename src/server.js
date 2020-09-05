@@ -28,6 +28,8 @@ connection.connect(function(err) {
 
   // imports route api clients 
     const clientsRoutes = require ('./api/routes/clients')
+    const check_emailRoutes = require ('./api/routes/check_email')
+    const check_phoneRoutes = require ('./api/routes/check_phone')
     const bookRoutes = require ('./api/routes/clients')
 
     newclient.use(morgan('dev'));
@@ -37,6 +39,9 @@ connection.connect(function(err) {
     // Routes whitch should handle request
     newclient.use('/clients', clientsRoutes)
     newclient.use('/books', bookRoutes)
+    newclient.use('/check_email', check_emailRoutes)
+    newclient.use('/check_phone', check_phoneRoutes)
+
 
     //console.log(proxy);
     newclient.use(createProxyMiddleware("/clients",{

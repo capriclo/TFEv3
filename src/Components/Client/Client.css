@@ -160,3 +160,18 @@ body{
 .client_button{
     margin-top:2%;
 }
+
+.update-client{
+
+    border: none;
+    border-radius: 1.5rem;
+    width: 100%;
+    height: 40px ;
+    margin-top: 5%;
+    padding: 1%;
+    font-weight: 500;
+    background-color: #6495ED;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}

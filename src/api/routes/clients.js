@@ -78,6 +78,8 @@ router.get('/:clientID', (req, res, next) => {
         })
 })
 
+
+
 router.patch('/:clientID', (req, res, next) => {
     res.status(200).json({
         message : 'Updated product'
