@@ -60,15 +60,13 @@ router.post('/', (req, res, next)=> {
 
     })
 
-
-    
 })
 
 router.get('/:clientID', (req, res, next) => {
     const id = req.params.clientID;
     var sql = 'SELECT * FROM clients WHERE IDclients = ' +id;
         connection.query(sql, function (err, result) {
-
+            console.log(result);
             if (err) throw err;
             client = result;
           });
@@ -81,8 +79,29 @@ router.get('/:clientID', (req, res, next) => {
 
 
 router.patch('/:clientID', (req, res, next) => {
+    const id = req.params.clientID;
+    console.log(id);
+    const client = {
+        name: req.body.new_name, 
+        first_name : req.body.new_first_name,
+        address: req.body.new_address,
+        email: req.body.new_email,
+        phone: req.body.new_phone
+    };
+    console.log(req.body)
+    console.log(req.body.new_name)
+    console.log(client)
     res.status(200).json({
-        message : 'Updated product'
+        message: 'Handling POST request to /clients',
+        UpdateClient: id,
+    })
+    var data = [client.name, client.first_name, client.address, client.email, client.phone, id]
+    connection.query("UPDATE clients SET Name=?, FirstName=?, Address=?, Email=?, Phone=? WHERE IDclients = ?", data,
+    (err, client, field) =>{
+        if (err) {
+            return console.error('error: ' + err.message);
+          }
+
     })
 })
 

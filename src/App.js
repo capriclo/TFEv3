@@ -14,6 +14,7 @@ import ArchivedClients from './Components/ArchivedClients/ArchivedClients';
 import "./Fichiers_JSON/clientdata.json"
 import AllClients from './Components/AllClients/AllClients'
 import Client from './Components/Client/Client'
+import UpdateClient from './Components/UpdateClient/UpdateClient'
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
           <Route exact path="/supplier" component={ArchivedSuppliers} />
           <Route exact path="/reception" component={Reception} />
           <Route exact path="/archived_clients" component={ArchivedClients} />
+          <Route exact path="/UpdateClient/1" component={UpdateClient} />
+
 
 
 

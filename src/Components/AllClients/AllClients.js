@@ -63,8 +63,7 @@ export class AllClients extends Component {
                                         </tr>
                                     </thead>
                                     {
-                                        this.state.clients.map(function (client) {
-                                          return(
+                                        this.state.clients.map(client => 
                                         <tbody id="items">
                                             <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
                                                 <td >{client.Name}</td>
@@ -75,8 +74,7 @@ export class AllClients extends Component {
                                                 <td><a href={"http://localhost:3000/Client/" +client.IDclients}>Accéder au client</a></td>
                                             </tr>
                                         </tbody>)
-                                    })
-                                  }
+                                    }
                                 </table>         
                             </div>
                         </div>

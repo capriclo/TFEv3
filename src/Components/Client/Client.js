@@ -13,10 +13,8 @@ export class Client extends Component {
 
       componentDidMount() {
         this.dbcall();
-      }
-
-      componentDidUpdate(){
-           this.dbcall();
+        this.dbcall();
+        
       }
 
       dbcall = e =>{
@@ -75,7 +73,7 @@ export class Client extends Component {
                             </div>
                             <div className="col-md-2 client_button">
                                 <a href="/archived_clients"><input className="archive-client-btn aqua-gradient" name="btnAddMore" value="Archiver le client"/></a>
-                                <a href="/archived_clients"><input className="update-client aqua-gradient" name="btnAddMore" value="Archiver le client"/></a>
+                                <a href="/UpdateClient/1"><input className="update-client aqua-gradient" name="btnAddMore" value="Mettre à jour le client"/></a>
                             </div>
                         </div>
                         <div className="row client_data">

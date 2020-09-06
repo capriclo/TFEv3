@@ -15,11 +15,14 @@ router.get('/:phone', (req, res, next) => {
     const quote = "\""; 
     const phone = "" +quote +req.params.phone +quote;
     console.log(phone);
-   var sql = 'SELECT * FROM clients WHERE Phone = ' +phone;
-        connection.query(sql, function (err, result) {
-        if (err) throw err;
+    var sql = 'SELECT * FROM clients WHERE Phone = ' +phone;
+    console.log(sql);
+    connection.query(sql, function (err, result) {
+        console.log(result)
+            if (err) throw err;
             check_phone = result.length;
           });
+          console.log(check_phone);
         res.status(200).json({
             message : 'Bienvenue',
             check_phone : check_phone

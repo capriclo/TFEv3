@@ -29,13 +29,13 @@ export  class NewArticle extends Component {
                                         <div  className='row3'>
                                             <div  className="input-group">
                                                 <label  className="label">Code du livre</label>
-                                                <input  className="input--style-4" type="text" name="first_name" />
+                                                <input  className="input--style-4" type="text" name="book_code" />
                                             </div>
                                         </div>
                                         <div  className="row-3">
                                             <div  className="input-group">
                                                 <label  className="label">Auteur</label>
-                                                <input  className="input--style-4" type="text" name="last_name"/>
+                                                <input  className="input--style-4" type="text" name="author"/>
                                             </div>
                                         </div>
                                     </div>
@@ -43,18 +43,13 @@ export  class NewArticle extends Component {
                                         <div  className="row-3">
                                             <div  className="input-group">
                                                 <label  className="label">Fournisseur</label>
-                                                <select name="subject" className="input--style-4 select">
-                                                    <option disabled="disabled" selected="selected">Choose option</option>
-                                                    <option>Subject 1</option>
-                                                    <option>Subject 2</option>
-                                                    <option>Subject 3</option>
-                                                </select>
+                                                <input  className="input--style-4" type="text" name="supplier" />
                                             </div>
                                         </div>
                                         <div  className="row-3">
                                             <div  className="input-group">
                                                 <label  className="label">Quantité en stok</label>
-                                                <input  className="input--style-4" type="text" name="phone" />
+                                                <input  className="input--style-4" type="text" name="quantity" />
                                             </div>
                                         </div>
                                     </div>
@@ -62,18 +57,13 @@ export  class NewArticle extends Component {
                                         <div  className="row-3">
                                             <div  className="input-group">
                                                 <label  className="label">Edition</label>
-                                                <select name="subject" className="input--style-4 select">
-                                                    <option disabled="disabled" selected="selected">Choose option</option>
-                                                    <option>Subject 1</option>
-                                                    <option>Subject 2</option>
-                                                    <option>Subject 3</option>
-                                                </select>
+                                                <input  className="input--style-4" type="text" name="edition" />
                                             </div>
                                         </div>
                                         <div  className="row-3">
                                             <div  className="input-group">
                                                 <label  className="label">Prix</label>
-                                                <input  className="input--style-4" type="text" name="phone" />
+                                                <input  className="input--style-4" type="text" name="loyalty_discount" />
                                             </div>
                                         </div>
                                     </div>
@@ -82,10 +72,8 @@ export  class NewArticle extends Component {
                                             <div  className="input-group">
                                                 <label  className="label">Taux de TVA</label>
                                                 <select name="subject" className="input--style-4 select">
-                                                    <option disabled="disabled" selected="selected">Choose option</option>
-                                                    <option>Subject 1</option>
-                                                    <option>Subject 2</option>
-                                                    <option>Subject 3</option>
+                                                    <option>6%</option>
+                                                    <option>21%</option>
                                                 </select>
                                             </div>
                                         </div>
