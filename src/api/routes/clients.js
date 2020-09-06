@@ -4,6 +4,8 @@ let mysql = require('mysql');
 
 let allclients;
 let client;
+let data;
+let sql;
 
 let connection = mysql.createConnection({
     host: 'localhost',
@@ -36,7 +38,7 @@ router.get('/', (req, res, next)=> {
     console.log(allclients);
 })
 
-router.post('/', (req, res, next)=> {
+router.post('/', (req,res, next)=> {
     const client = {
         name: req.body.name, 
         first_name : req.body.first_name,
@@ -49,22 +51,20 @@ router.post('/', (req, res, next)=> {
         createdClient: client 
     })
 
-    var data = [client.name, client.first_name, client.address, client.email, client.phone]
+    data = [client.name, client.first_name, client.address, client.email, client.phone]
 
     console.log(data);
 
-    connection.query("INSERT INTO clients SET Name=?, FirstName=?, Address=?, Email=?, Phone=? ", data, (err, client, field)=>{
-        if (err) {
-            return console.error('error: ' + err.message);
-          }
-
-    })
+    sql ="INSERT INTO clients SET Name=?, FirstName=?, Address=?, Email=?, Phone=? "
+        
+    res.end();
+    postbdd();
 
 })
 
 router.get('/:clientID', (req, res, next) => {
     const id = req.params.clientID;
-    var sql = 'SELECT * FROM clients WHERE IDclients = ' +id;
+    sql = 'SELECT * FROM clients WHERE IDclients = ' +id;
         connection.query(sql, function (err, result) {
             console.log(result);
             if (err) throw err;
@@ -74,6 +74,8 @@ router.get('/:clientID', (req, res, next) => {
             message : 'Bienvenue',
             client : client
         })
+
+        res.end();
 })
 
 
@@ -95,6 +97,7 @@ router.patch('/:clientID', (req, res, next) => {
         message: 'Handling POST request to /clients',
         UpdateClient: id,
     })
+    res.end();
     var data = [client.name, client.first_name, client.address, client.email, client.phone, id]
     connection.query("UPDATE clients SET Name=?, FirstName=?, Address=?, Email=?, Phone=? WHERE IDclients = ?", data,
     (err, client, field) =>{
@@ -103,12 +106,48 @@ router.patch('/:clientID', (req, res, next) => {
           }
 
     })
+    
 })
 
 router.delete('/:clientID', (req, res, next) => {
     res.status(200).json({
         message : 'Deleted product'
     })
+    res.end();
 })
+
+router.post('/books/', (req, res, next)=> {
+    const book = {
+        title: req.body.title, 
+        book_code : req.body.book_code,
+        supplier: req.body.supplier, 
+        edition : req.body.edition,
+        vatrate : req.body.VAT,
+        barcode : req.body.barcode,
+        author : req.body.author,
+        quantity : req.body.quantity,
+        price : req.body.price,
+        loyalty_discount : req.body.loyalty_discount
+    };
+    res.status(202).json({
+        message : 'Book was created',
+        book: book
+    })
+    res.end();
+    data = [book.title, book.book_code, book.supplier,book.edition, book.vatrate,book.barcode, book.author, book.quantity, book.price, book.loyalty_discount]
+    console.log(data);
+
+    sql = "INSERT INTO books SET Title=?, Book_code=?, Supplier=?, Edition=?, VAT=?, Barcode=?, Author=?, Quantity=?, Price=?, Loyalty_discount=? "
+    postbdd();
+})
+
+function postbdd() {
+    connection.query(sql, data, (err, book, field)=>{
+        if (err) {
+            return console.error('error: ' + err.message);
+          }
+
+    })
+  }
 
 module.exports = router;

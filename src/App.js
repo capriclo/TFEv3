@@ -15,6 +15,7 @@ import "./Fichiers_JSON/clientdata.json"
 import AllClients from './Components/AllClients/AllClients'
 import Client from './Components/Client/Client'
 import UpdateClient from './Components/UpdateClient/UpdateClient'
+import AllBooks from './Components/AllBooks/AllBooks'
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path="/backet" component={Basket} />
-          <Route exact path="/articles" component={NewArticle} />
+          <Route exact path="/new_article" component={NewArticle} />
           <Route exact path="/Allclients" component={AllClients} />
           <Route path="/Client" component={Client} />
           <Route exact path="/new_client" component={NewClient} />
@@ -33,6 +34,8 @@ function App() {
           <Route exact path="/reception" component={Reception} />
           <Route exact path="/archived_clients" component={ArchivedClients} />
           <Route exact path="/UpdateClient/1" component={UpdateClient} />
+          <Route exact path="/allBooks" component={AllBooks} />
+
 
 
 

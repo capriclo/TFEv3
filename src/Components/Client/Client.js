@@ -50,6 +50,7 @@ export class Client extends Component {
        
 
     render() {
+        if(this.state.client) {
         return (
             <div>
                 <div className="container emp-profile">
@@ -186,6 +187,7 @@ export class Client extends Component {
             </div>
         )
     }
+}
 }
 
 export default Client

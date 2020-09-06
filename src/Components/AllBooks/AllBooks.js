@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-import './AllClients.css';
+import './AllBooks.css';
 
-export class AllClients extends Component {
+export class AllBooks extends Component {
     constructor(props) {
         super(props);
         this.state = {
           error: null,
           isLoaded: false,
-          clients: []
+          books: []
         };
       }
 
       componentDidMount() {
-        fetch("http://localhost:3014/clients")
+        fetch("http://localhost:3014/books")
           .then(res => res.json())
           .then(
             (result) => {
               this.setState({
                 isLoaded: true,
-                clients: result.clients
+                books: result.books
               });
               console.log(this.state);
             },
@@ -35,44 +35,55 @@ export class AllClients extends Component {
       }
 
     render() {
-      if(this.state.clients) {
+     if(this.state.books) {
+       console.log(this.state.books)
         return (
             <div>
                 <div className="container emp-profile">
                     <div>
                         <form className="form-inline md-form mr-auto mb-4">
-                            <a href="/new_client"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" value="Nouveau client"/></a>
+                            <a href="/new_article"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" value="Nouvel article"/></a>
                             <a href="/archived_clients"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" value="Voir les clients archivés"/></a>
                             <a href="/client"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" value="Archiver le client"/></a>
                             <input className="form-control mr-sm-2 input-search" type="text" placeholder="Search" aria-label="Search" />
                             <input type="submit" className="search-btn aqua-gradient" name="btnAddMore" value="Search"/>
                         </form>
                     </div> 
-                    <div className="tab-content table_previous_purchase">
+                    
+                      <div className="tab-content table_previous_purchase">
                         <div className="tab-pane active" id="home">
                             <div className="table-responsive">
                                 <table className="table table-hover">
                                     <thead>
                                         <tr>
-                                        <th>Nom</th>
-                                        <th>Prénom</th>
-                                        <th>Adresse</th>
-                                        <th>Adresse email</th>
-                                        <th>Téléphone</th>
-                                        <th>Accéder au client</th>
-                                        
+                                          <th>Titre</th>
+                                          <th>Code du livre</th>
+                                          <th>Fournisseur</th>
+                                          <th>Edition</th>
+                                          <th>TVA</th>
+                                          <th>Code-barres</th>
+                                          <th>Autheur</th>
+                                          <th>Quantité</th>
+                                          <th>Prix</th>
+                                          <th>Réduction fidélité</th>
+                                          <th>Accéder au livre</th>
                                         </tr>
                                     </thead>
-                                    {
-                                        this.state.clients.map(client => 
+                                    { 
+                                        this.state.books.map(book => 
                                         <tbody id="items">
                                             <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
-                                                <td >{client.Name}</td>
-                                                <td >{client.FirstName}</td>
-                                                <td >{client.Address}</td>
-                                                <td >{client.Email}</td>
-                                                <td >{client.Phone}</td>
-                                                <td><a href={"http://localhost:3000/Client/" +client.IDclients}>Accéder au client</a></td>
+                                                <td>{book.Title}</td>
+                                                <td>{book.Book_code}</td>
+                                                <td>{book.Supplier}</td>
+                                                <td>{book.Edition}</td>
+                                                <td>{book.VAT}</td>
+                                                <td>{book.Barcode}</td>
+                                                <td>{book.Author}</td>
+                                                <td>{book.Quantity}</td>
+                                                <td>{book.Price}</td>
+                                                <td>{book.Loyalty_discount}</td>
+                                                <td><a href="">Accéder au client</a></td>
                                             </tr>
                                         </tbody>)
                                     }
@@ -82,15 +93,15 @@ export class AllClients extends Component {
                     </div>
                 </div>
             </div>
-       )
+        )
       }else{
         return(
           <div>
-            
+
           </div>
         )
       }
     }
 }
 
-export default AllClients
+export default AllBooks

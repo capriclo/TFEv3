@@ -30,7 +30,8 @@ connection.connect(function(err) {
     const clientsRoutes = require ('./api/routes/clients')
     const check_emailRoutes = require ('./api/routes/check_email')
     const check_phoneRoutes = require ('./api/routes/check_phone')
-    const bookRoutes = require ('./api/routes/clients')
+    const bookRoutes = require ('./api/routes/books')
+    const check_bookRoutes = require('./api/routes/check_book')
 
     newclient.use(morgan('dev'));
     newclient.use(bodyParser.urlencoded({extended: false}));
@@ -41,6 +42,7 @@ connection.connect(function(err) {
     newclient.use('/books', bookRoutes)
     newclient.use('/check_email', check_emailRoutes)
     newclient.use('/check_phone', check_phoneRoutes)
+    newclient.use('/check_book', check_bookRoutes)
 
 
     //console.log(proxy);
@@ -51,17 +53,17 @@ connection.connect(function(err) {
     })
       )
 
-      newclient.use(createProxyMiddleware("/books",{
+     /* newclient.use(createProxyMiddleware("/books",{
         target:'https://jsonplaceholder.typicode.com/',
         secure: false, 
         changeOrigin: true
       })
-        )
+        )*/
 
     newclient.use((req, res, next) => {
         const error = new Error('Not found');
         error.status = 404;
-        next(error);
+        res.end();
     })
 
     newclient.use((error, req, res, next) => {
@@ -71,7 +73,7 @@ connection.connect(function(err) {
                 message: error.message
             }
         })
-
+        res.end();
     });
 
     newclient.listen(3012);
