@@ -3,9 +3,13 @@ import './NewClient.css';
 import axios from 'axios';
 const instance = axios.create();
 var error; 
+var today = new Date();
+var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
 
 export class NewClient extends Component {
+    
+    
 
     constructor(props){
         super(props);
@@ -13,8 +17,10 @@ export class NewClient extends Component {
             name: "",
             first_name:"",
             address:"",
+            birthdate:"",
             email: "",
             phone:"",
+            datecreationclient: date,
             error: null,
             isLoaded: false,
             check_email: []
@@ -27,8 +33,18 @@ export class NewClient extends Component {
         console.log(this.state);
     }
 
+   /* setdate = newdate =>{
+        this.setState({actualdate : date});
+        console.log(this.state);
+    }*/
+
     submitHandler = e => {
         var name_length = this.state.name.length;
+       // console.log(this.state);
+       // this.setState({actualdate: date});
+       //this.setdate();
+        console.log(date);
+        console.log(this.state);
         if(name_length > 1 &&  name_length < 55){
             console.log(name_length);
             var first_name_length = this.state.first_name.length;
@@ -77,7 +93,7 @@ export class NewClient extends Component {
                             instance.post('http://localhost:3012/clients', this.state)
                             .then(response => {
                                 console.log(response);
-                                window.location.href = "http://localhost:3000/Allclients";
+                                //window.location.href = "http://localhost:3000/Allclients";
                             }).catch(error =>{
                                 console.log(error)
                             })
@@ -103,7 +119,7 @@ export class NewClient extends Component {
     }
 
     render() {
-        const {name, first_name, address, email, phone} = this.state
+        const {name, first_name, address,birthdate, email, phone} = this.state
         return (
             <div>
                 <div className="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins">
@@ -121,6 +137,9 @@ export class NewClient extends Component {
                                     </div>
                                     <div className="input-group">
                                         <input className="input--style-3" type="text" placeholder="Adresse" name="address"  value={address} onChange={this.onChange} required/>
+                                    </div>
+                                    <div className="input-group">
+                                        <input className="input--style-3" type="date" placeholder="BirthDate" name="birthdate" value={birthdate} onChange={this.onChange} required/>
                                     </div>
                                     <div className="input-group">
                                         <input className="input--style-3" type="email" placeholder="Email" name="email" value={email} onChange={this.onChange} required />

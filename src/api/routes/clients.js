@@ -7,6 +7,8 @@ let client;
 let data;
 let sql;
 
+
+
 let connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -43,19 +45,22 @@ router.post('/', (req,res, next)=> {
         name: req.body.name, 
         first_name : req.body.first_name,
         address: req.body.address,
+        birthdate: req.body.birthdate,
         email: req.body.email,
-        phone: req.body.phone
+        phone: req.body.phone,
+        datecreationclient: req.body.datecreationclient
     };
+    
     res.status(200).json({
         message: 'Handling POST request to /clients',
         createdClient: client 
     })
 
-    data = [client.name, client.first_name, client.address, client.email, client.phone]
+    data = [client.name, client.first_name, client.address,client.birthdate, client.email, client.phone, client.datecreationclient]
 
     console.log(data);
 
-    sql ="INSERT INTO clients SET Name=?, FirstName=?, Address=?, Email=?, Phone=? "
+    sql ="INSERT INTO clients SET Name=?, FirstName=?, Address=?, BirthDate=?, Email=?, Phone=?, DateCreationClient=? "
         
     res.end();
     postbdd();
