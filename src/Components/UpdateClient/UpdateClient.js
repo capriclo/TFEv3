@@ -31,19 +31,21 @@ export class UpdateClient extends Component {
             new_first_name:"",
             new_address:"",
             new_email: "",
-            new_phone: ""
+            new_phone: "",
+            test2: ""
           };
+          var url = document.URL;
+          const quote = "\"";  
+          var true_url = "" +quote +url +quote
+          this.state.test2 =  url.substr(+35)
+          console.log(this.state.test2)
           this.dbcall();
 
     }
       
       dbcall = e =>{
-        var url = document.URL;
-        const quote = "\"";  
-        var true_url = "" +quote +url +quote
-        var test2 =  true_url.substr(-2,1)
-        console.log("http://localhost:3014/clients/" +test2)
-        fetch("http://localhost:3014/clients/" +test2)
+        console.log("http://localhost:3014/clients/" +this.state.test2)
+        fetch("http://localhost:3014/clients/" +this.state.test2)
           .then(res => res.json())
           .then(
             (result) => {
@@ -193,13 +195,8 @@ export class UpdateClient extends Component {
     updateItem = item => {
         var data = [this.state.new_name, this.state.new_first_name, this.state.new_address, this.state.new_email, this.state.new_phone]
         console.log("data = " +data);
-        var url = document.URL;
-        const quote = "\"";  
-        var true_url = "" +quote +url +quote
-        var test2 =  true_url.substr(-2,1)
-        console.log(test2);
         console.log(this.state);
-        axios.patch('http://localhost:3014/clients/'+test2 ,this.state)
+        axios.patch('http://localhost:3014/clients/'+this.state.test2 ,this.state)
             .then(res => {
             /*this.setState({items: res.data});
             this.props.history.push('/items');*/
@@ -210,44 +207,50 @@ export class UpdateClient extends Component {
 
 
     render() {
-        console.log(this.state);
-        return (
-            <div>
-                 {this.state.client.map(client => 
-                <div className="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins">
-                    <div className="wrapper wrapper--w780">
-                        <div className="card card-3">
-                            <div className="card-heading"></div>
-                            <div className="card-body">
-                                <h2 className="title">Modifier le Client</h2>
-                                <form >
-                                    <div className="input-group">
-                                        <input id="name" className="input--style-3" type="text" placeholder={client.Name} name="name" defaultValue={client.Name} onChange={this.onChange} required/>
-                                    </div>
-                                    <div className="input-group">
-                                        <input id="first_name" className="input--style-3" type="text" placeholder={client.FirstName} name="first_name" defaultValue={client.FirstName} onChange={this.onChange} required/>
-                                    </div>
-                                    <div className="input-group">
-                                        <input id="address" className="input--style-3" type="text" placeholder={client.Address} name="address" defaultValue={client.Address} onChange={this.onChange} required/>
-                                    </div>
-                                    <div className="input-group">
-                                        <input id="email" className="input--style-3" type="email" placeholder={client.Email} name="email" defaultValue={client.Email} onChange={this.onChange} required />
-                                    </div>
-                                    <div className="input-group">
-                                        <input id="phone" className="input--style-3" type="text" placeholder={client.Phone} name="phone" defaultValue={client.Phone} onChange={this.onChange} required/>
-                                    </div>
-                                </form>
-                                <div className="p-t-10">
-                                        <button className="btn btn--pill btn--green" onClick={this.submitHandler}>Modifier le client</button>
-                                    </div>
-                            <p className="error">{error}</p>
+        if(this.state.client) {
+            return (
+                <div>
+                    {this.state.client.map(client => 
+                    <div className="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins">
+                        <div className="wrapper wrapper--w780">
+                            <div className="card card-3">
+                                <div className="card-heading"></div>
+                                <div className="card-body">
+                                    <h2 className="title">Modifier le Client</h2>
+                                    <form >
+                                        <div className="input-group">
+                                            <input id="name" className="input--style-3" type="text" placeholder={client.Name} name="name" defaultValue={client.Name} onChange={this.onChange} required/>
+                                        </div>
+                                        <div className="input-group">
+                                            <input id="first_name" className="input--style-3" type="text" placeholder={client.FirstName} name="first_name" defaultValue={client.FirstName} onChange={this.onChange} required/>
+                                        </div>
+                                        <div className="input-group">
+                                            <input id="address" className="input--style-3" type="text" placeholder={client.Address} name="address" defaultValue={client.Address} onChange={this.onChange} required/>
+                                        </div>
+                                        <div className="input-group">
+                                            <input id="email" className="input--style-3" type="email" placeholder={client.Email} name="email" defaultValue={client.Email} onChange={this.onChange} required />
+                                        </div>
+                                        <div className="input-group">
+                                            <input id="phone" className="input--style-3" type="text" placeholder={client.Phone} name="phone" defaultValue={client.Phone} onChange={this.onChange} required/>
+                                        </div>
+                                    </form>
+                                    <div className="p-t-10">
+                                            <button className="btn btn--pill btn--green" onClick={this.submitHandler}>Modifier le client</button>
+                                        </div>
+                                    <p className="error">{error}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div> 
-                ) }
-            </div>
-        )
+                    </div> 
+                    ) }
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                </div>
+            )
+        }
     }
 }
 

@@ -9,25 +9,27 @@ let connection = mysql.createConnection({
     database: 'tfe'
 });
 
-//var check_phone;
+var check_book=0;
+var book;
 
 router.get('/:titre', (req, res, next) => {
     const quote = "\""; 
     const titre = "" +quote +req.params.titre +quote;
     console.log(titre);
-    /*var sql = 'SELECT * FROM clients WHERE Phone = ' +phone;
+    var sql = 'SELECT * FROM books WHERE Title = ' +titre;
     console.log(sql);
     connection.query(sql, function (err, result) {
-        console.log(result)
+            console.log(result)
             if (err) throw err;
-            check_phone = result.length;
+            book = result;
+            console.log(check_book);
+            console.log(book)
           });
-          console.log(check_phone);*/
         res.status(200).json({
-            message : 'Bienvenue', 
-            titre: titre
-            
+            message : 'Bienvenue',
+            book: book, 
          })
+        // check_book: check_book  
 })
 
 module.exports = router;

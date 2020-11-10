@@ -19,7 +19,8 @@ export  class NewArticle extends Component {
             loyalty_discount:"",
             error: null,
             isLoaded: false,
-            check_email: []
+            check_book: "",
+            book:[]
           };
         }
 
@@ -29,8 +30,30 @@ export  class NewArticle extends Component {
 
      submitHandler = e => {
         this.state.VAT = document.getElementById('tva').value;
-
-                e.preventDefault()
+        //code non fonctionnel
+       /* fetch("http://localhost:3012/check_book/" +this.state.title)
+                .then(res => res.json())
+                .then(
+                  (result) => {
+                    console.log(result.book[0]);
+                    this.setState({
+                      isLoaded: true,
+                      book: result.book
+                    });
+                    console.log("state_book" +this.state.book)
+                    //console.log("state_check_book" +this.state.check_book);
+                  },
+                  (error) => {
+                    this.setState({
+                      isLoaded: true,
+                      error
+                    });
+                  }
+                )*/
+                  
+                  //if(this.state.check_book.check_book < 1)
+                  //code fonctionnel pour l'ajout de livre dans la bdd
+                            e.preventDefault()
                             console.log(this.state)
                             instance.post('http://localhost:3012/clients/books', this.state)
                             .then(response => {

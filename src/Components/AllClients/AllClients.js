@@ -43,7 +43,6 @@ export class AllClients extends Component {
                         <form className="form-inline md-form mr-auto mb-4">
                             <a href="/new_client"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" value="Nouveau client"/></a>
                             <a href="/archived_clients"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" value="Voir les clients archivés"/></a>
-                            <a href="/client"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" value="Archiver le client"/></a>
                             <input className="form-control mr-sm-2 input-search" type="text" placeholder="Search" aria-label="Search" />
                             <input type="submit" className="search-btn aqua-gradient" name="btnAddMore" value="Search"/>
                         </form>

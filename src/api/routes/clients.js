@@ -70,6 +70,7 @@ router.get('/:clientID', (req, res, next) => {
             if (err) throw err;
             client = result;
           });
+          console.log(client)
         res.status(200).json({
             message : 'Bienvenue',
             client : client

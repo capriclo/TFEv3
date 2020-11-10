@@ -36,11 +36,20 @@ router.get('/', (req, res, next)=> {
 
 
 router.get('/:bookID', (req, res, next)=> {
-    res.status(200).json({
-        message : 'Book details',
-        bookID : req.params.bookID
-    })
-    res.end();
+    const id = req.params.bookID;
+    sql = 'SELECT * FROM books WHERE idbooks = ' +id;
+        connection.query(sql, function (err, result) {
+            console.log(result);
+            if (err) throw err;
+            book = result;
+          });
+          console.log(book)
+        res.status(200).json({
+            message : 'Bienvenue',
+            book : book
+        })
+
+        res.end();
 })
 
 /*router.deleted('/:bookID', (req, res, next)=> {
