@@ -83,7 +83,7 @@ export class Basket extends Component {
                         <div className="basket_block">
                             <div className="div_search_article">
                                     <input className="form-control mr-sm-2 input-search" id='barcode' type="text" placeholder="Search" aria-label="Search" />
-                                    <button onClick={this.searchbarcode} className="search-btn aqua-gradient btn_search_article" name="btnAddMore" value="Rechercher un article">Rechercher un article</button>
+                                    <button onClick={this.searchbarcode} className="btn_search_article search-btn aqua-gradient" name="btnAddMore" value="Rechercher un article">Rechercher un article</button>
                                 <div className="div_icons">
                                     <svg width="2em" height="2em" viewBox="0 0 16 16" className="bi bi-printer print_icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M11 2H5a1 1 0 0 0-1 1v2H3V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h-1V3a1 1 0 0 0-1-1zm3 4H2a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v1H2a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1z"/>

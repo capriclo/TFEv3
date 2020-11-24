@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './NewArticle.css';
-import axios from 'axios';
-const instance = axios.create();
+//import axios from 'axios';
+//const instance = axios.create();
+var error; 
 
 export  class NewArticle extends Component {
     constructor(props){
@@ -20,6 +21,7 @@ export  class NewArticle extends Component {
             error: null,
             isLoaded: false,
             check_book: "",
+            check_book_code:1,
             book:[]
           };
         }
@@ -29,31 +31,19 @@ export  class NewArticle extends Component {
         console.log(this.state);}
 
      submitHandler = e => {
-        this.state.VAT = document.getElementById('tva').value;
-        //code non fonctionnel
-       /* fetch("http://localhost:3012/check_book/" +this.state.title)
-                .then(res => res.json())
-                .then(
-                  (result) => {
-                    console.log(result.book[0]);
-                    this.setState({
-                      isLoaded: true,
-                      book: result.book
-                    });
-                    console.log("state_book" +this.state.book)
-                    //console.log("state_check_book" +this.state.check_book);
-                  },
-                  (error) => {
-                    this.setState({
-                      isLoaded: true,
-                      error
-                    });
-                  }
-                )*/
-                  
-                  //if(this.state.check_book.check_book < 1)
-                  //code fonctionnel pour l'ajout de livre dans la bdd
-                            e.preventDefault()
+        this.setState({[this.state.VAT] : document.getElementById('tva').value })
+        var title_length = this.state.title.length;
+            if(title_length > 1 && title_length < 255){
+                var book_code_length = this.state.book_code.length;
+                if(title_length > 1 && book_code_length < 255){
+                    this.check_code();
+                    this.check_code();
+
+                    if(this.state.check_book_code < 1){
+                        error = "Ce code de livre +titre fonctionnel";
+                        //if(this.state.check_book.check_book < 1)
+                    //code fonctionnel pour l'ajout de livre dans la bdd
+                         /*   e.preventDefault()
                             console.log(this.state)
                             instance.post('http://localhost:3012/clients/books', this.state)
                             .then(response => {
@@ -61,8 +51,43 @@ export  class NewArticle extends Component {
                                 window.location.href = "http://localhost:3000/allBooks";
                             }).catch(error =>{
                                 console.log(error)
-                            })
+                            })*/
+                    }else{
+                        error = "Ce code de livre existe déjà";
+                   }
+
+
+                   
+
+                }else{
+                    error = "Le code du libre ne doit ni dépasser 255 caractères ni être vide !";
+                }
+                
+            }else{
+                error = "Le titre ne doit ni dépasser 255 caractères ni être vide !";
+            }
+                  
      }
+
+     check_code = e =>{
+        fetch("http://localhost:3012/check_book_code/" +this.state.book_code)
+        .then(res => res.json())
+        .then(
+        (result) => {
+            console.log(result);
+            this.setState({
+            isLoaded: true,
+            check_book_code: result.check_book_code
+            });
+        },
+        (error) => {
+            this.setState({
+            isLoaded: true,
+            error
+            });
+        }
+        )
+    }
 
     render() {
         return (
@@ -147,6 +172,8 @@ export  class NewArticle extends Component {
                                         </div>
                                     </div>
                                 </form>
+                                <p className="error">{error}</p>
+                                <br />
                                 <div  className="p-t-15">
                                         <button  className="btn btn--radius-2 btn--blue" onClick={this.submitHandler} >Submit</button>
                                     </div>

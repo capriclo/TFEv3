@@ -2,7 +2,41 @@ import React, { Component } from 'react';
 import './ArchivedClients.css';
 
 export class ArchivedClients extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          error: null,
+          isLoaded: false,
+          archived_clients: []
+        };
+      }
+
+    componentDidMount() {
+        fetch("http://localhost:3012/archive_client")
+          .then(res => res.json())
+          .then(
+            (result) => {
+                console.log(result);
+              this.setState({
+                isLoaded: true,
+                archived_clients: result.clients
+              });
+              console.log(this.state);
+            },
+            // Remarque : il est important de traiter les erreurs ici
+            // au lieu d'utiliser un bloc catch(), pour ne pas passer à la trappe
+            // des exceptions provenant de réels bugs du composant.
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              });
+            }
+          )
+      }
+
     render() {
+        if(this.state.archived_clients) {
         return (
             <div>
                 <div className="container emp-profile">
@@ -23,34 +57,16 @@ export class ArchivedClients extends Component {
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="items">
-                                        <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
-                                            <td>Ada Lovelace</td>
-                                            <td>10/12/2012</td>
-                                            <td className="action_reorder">Transférer vers la liste des clients actuels</td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody id="items">
-                                        <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
-                                            <td>Grace Hoper</td>
-                                            <td>11/12/2012</td>
-                                            <td className="action_reorder">Transférer vers la liste des clients actuels</td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody id="items">
-                                        <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
-                                            <td>Margaret Hamilton</td>
-                                            <td>12/12/2012</td>
-                                            <td className="action_reorder">Transférer vers la liste des clients actuels</td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody id="items">
-                                        <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
-                                            <td>Joan Clarke</td>
-                                            <td>13/12/2012</td>
-                                            <td className="action_reorder">Transférer vers la liste des clients actuels</td>
-                                        </tr>
-                                    </tbody>
+                                    {
+                                        this.state.archived_clients.map(client => 
+                                        <tbody id="items">
+                                            <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
+                                                <td >{client.Name} {client.FirstName}</td>
+                                                <td >{client.ArchivedDate}</td>
+                                                <td className="action_reorder">Transférer vers la liste des clients actuels</td>
+                                            </tr>
+                                        </tbody>)
+                                    }
                                 </table>         
                             </div>
                         </div>
@@ -58,6 +74,7 @@ export class ArchivedClients extends Component {
                 </div>
             </div>
         )
+        }
     }
 }
 

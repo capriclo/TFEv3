@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 let mysql = require('mysql');
 
-let allbooks;
+
+let all_archived_clients;
 let data;
 let sql;
 
@@ -20,6 +21,21 @@ connection.connect(function(err) {
   
     console.log('Connected to the MySQL server.');
   });
+
+  router.get('/', (req, res, next)=> {
+    connection.query("SELECT * FROM archived_clients", function (err, result) {
+
+        if (err) throw err;
+        console.log(result);
+        all_archived_clients = result;
+    
+      });
+      console.log(all_archived_clients);
+    res.status(200).json({
+        clients : all_archived_clients
+    })
+    console.log(all_archived_clients);
+})
 
   router.post('/', (req,res, next)=> {
         console.log('.................................................................................................');
@@ -51,6 +67,20 @@ connection.connect(function(err) {
 
 })
 
+router.delete('/:clientID', (req, res, next) => {
+  const id = req.params.clientID;
+  var delete_request = "DELETE FROM clients WHERE IDclients = " +id;
+  connection.query(delete_request, function (err, result) {
+    console.log(result);
+    if (err) throw err;
+    console.log("Number of records deleted: " + result.affectedRows);
+  });
+    res.status(200).json({
+        message : 'Deleted product'
+    })
+    res.end();
+})
+
 function postbdd() {
     connection.query(sql, data, (err, client, field)=>{
         if (err) {
@@ -59,6 +89,8 @@ function postbdd() {
 
     })
   }
+
+  
 
 
 module.exports = router;

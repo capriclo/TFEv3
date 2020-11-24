@@ -125,7 +125,7 @@ body{
 .search-btn{
     border: none;
     border-radius: 1.5rem;
-    width: 20%;
+    width: 30%;
     height: 40px ;
     padding: 1%;
     font-weight: 500;
@@ -212,7 +212,7 @@ body{
 }
 
 .btn_search_article{
-    width: 100%;
+    width: 115px;
     text-align: center;
 }
 

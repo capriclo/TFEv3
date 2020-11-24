@@ -10,7 +10,8 @@ export class Client extends Component {
             test2:'',
           error: null,
           isLoaded: false,
-          client: []
+          client: [],
+          check_archived_client : ''
         };
         var url = document.URL;
         const quote = "\"";  
@@ -59,12 +60,49 @@ export class Client extends Component {
 
         item.preventDefault()
         instance.post('http://localhost:3012/archive_client', this.state)
-       /* .then(response => {
+        .then(response => {
             console.log(response);
-           // window.location.href = "http://localhost:3000/Allclients";
+            console.log(this.state.client[0].IDclients)
+                fetch("http://localhost:3012/check_archived_client/" +this.state.client[0].IDclients)
+                .then(res => res.json())
+                .then(
+                  (result) => {
+                    console.log(result);
+                    this.setState({
+                      isLoaded: true,
+                      check_email: result.check_mail
+                    });
+                  },
+                  (error) => {
+                    this.setState({
+                      isLoaded: true,
+                      error
+                    });
+                  }
+                )
+                console.log(this.state.archive_client)
+                if(this.state.check_archived_client < 1)
+                  {
+                    instance.delete("http://localhost:3012/archive_client/" +this.state.client[0].IDclients)
+                    .then(
+                        (result) => {
+                          console.log(result);
+                          window.location.href = "http://localhost:3000/Allclients";
+                        },
+                        (error) => {
+                          this.setState({
+                            isLoaded: true,
+                            error
+                          });
+                        }
+                      )
+                  }
+                  else{
+                      console.log("Le client n'a pas été copié dans la la table archived_clients !")
+                  }
         }).catch(error =>{
             console.log(error)
-        })*/
+        })
         
                 }
 
