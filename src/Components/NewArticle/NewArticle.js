@@ -31,27 +31,44 @@ export  class NewArticle extends Component {
         console.log(this.state);}
 
      submitHandler = e => {
+        this.check_code();
+        this.check_code();
         this.setState({[this.state.VAT] : document.getElementById('tva').value })
         var title_length = this.state.title.length;
             if(title_length > 1 && title_length < 255){
                 var book_code_length = this.state.book_code.length;
                 if(title_length > 1 && book_code_length < 255){
-                    this.check_code();
-                    this.check_code();
 
                     if(this.state.check_book_code < 1){
-                        error = "Ce code de livre +titre fonctionnel";
-                        //if(this.state.check_book.check_book < 1)
-                    //code fonctionnel pour l'ajout de livre dans la bdd
-                         /*   e.preventDefault()
-                            console.log(this.state)
-                            instance.post('http://localhost:3012/clients/books', this.state)
-                            .then(response => {
-                                console.log(response);
-                                window.location.href = "http://localhost:3000/allBooks";
-                            }).catch(error =>{
-                                console.log(error)
-                            })*/
+                        var supplier_length = this.state.supplier.length;
+                        if(supplier_length > 1){
+                            var edition_length = this.state.edition.length;
+                            console.log('edition_length : ' +edition_length);
+
+                            if(edition_length > 1){
+                                error = "Ce code de livre +titre +fournisseur +edition fonctionnel";
+                                console.log('taux tva ' +this.state.VAT)
+
+                                  //if(this.state.check_book.check_book < 1)
+                                //code fonctionnel pour l'ajout de livre dans la bdd
+                                    /*   e.preventDefault()
+                                        console.log(this.state)
+                                        instance.post('http://localhost:3012/clients/books', this.state)
+                                        .then(response => {
+                                            console.log(response);
+                                            window.location.href = "http://localhost:3000/allBooks";
+                                        }).catch(error =>{
+                                            console.log(error)
+                                        })*/
+
+                            }else{
+                                error = "L'édition ne doit pas être vide !";
+                            }
+
+                        }else{
+                            error = "Le fournisseur ne doit pas être vide !";
+                        }
+
                     }else{
                         error = "Ce code de livre existe déjà";
                    }
