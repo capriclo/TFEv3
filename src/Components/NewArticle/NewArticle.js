@@ -22,6 +22,7 @@ export  class NewArticle extends Component {
             isLoaded: false,
             check_book: "",
             check_book_code:1,
+            check_barcode:1,
             book:[]
           };
         }
@@ -37,29 +38,61 @@ export  class NewArticle extends Component {
         var title_length = this.state.title.length;
             if(title_length > 1 && title_length < 255){
                 var book_code_length = this.state.book_code.length;
-                if(title_length > 1 && book_code_length < 255){
-
+                console.log("la longueur du code est :" +book_code_length)
+                if(book_code_length > 1 && book_code_length < 255){
+                    
                     if(this.state.check_book_code < 1){
                         var supplier_length = this.state.supplier.length;
                         if(supplier_length > 1){
+                            error="supplier ok"
                             var edition_length = this.state.edition.length;
-                            console.log('edition_length : ' +edition_length);
 
                             if(edition_length > 1){
-                                error = "Ce code de livre +titre +fournisseur +edition fonctionnel";
                                 console.log('taux tva ' +this.state.VAT)
+                                var TVA = document.getElementById('tva').value;
+                                console.log('TVA V2 = ' +TVA);
 
-                                  //if(this.state.check_book.check_book < 1)
-                                //code fonctionnel pour l'ajout de livre dans la bdd
-                                    /*   e.preventDefault()
-                                        console.log(this.state)
-                                        instance.post('http://localhost:3012/clients/books', this.state)
-                                        .then(response => {
-                                            console.log(response);
-                                            window.location.href = "http://localhost:3000/allBooks";
-                                        }).catch(error =>{
-                                            console.log(error)
-                                        })*/
+                                var barcode_length = this.state.barcode.length;
+                                console.log("longueur barcode = " +barcode_length);
+
+                                if(barcode_length > 1){
+                                    error = "Ce code de livre +titre +fournisseur +edition +barcode fonctionnel";
+                                    console.log("barecode = " +this.state.barcode);
+
+                                   /* var ch = this.state.barcode;
+
+                                    console.log('ch1 = ' +ch);
+
+                                    ch = ch.replace(/\\/g,"\\\\")
+                                    ch = ch.replace(/\'/g,"\\'")
+                                    ch = ch.replace(/\"/g,"\\\"")
+
+                                    console.log('ch2 = ' +ch);
+
+                                    console.log("state barcode = ch = "  +this.state.barcode);*/
+
+                                    this.check_barcode();
+                                    this.check_barcode();
+
+                                    console.log("état du check-barcode" +this.state.check_book_code);
+
+                                    //FAIRE UN TABLEAU POUR DONNER LES VALEURS AU BACK_END !!!!
+
+                                    //if(this.state.check_book.check_book < 1)
+                                    //code fonctionnel pour l'ajout de livre dans la bdd
+                                        /*   e.preventDefault()
+                                            console.log(this.state)
+                                            instance.post('http://localhost:3012/clients/books', this.state)
+                                            .then(response => {
+                                                console.log(response);
+                                                window.location.href = "http://localhost:3000/allBooks";
+                                            }).catch(error =>{
+                                                console.log(error)
+                                            })*/
+
+                                }else{
+                                    error = "Le code barre ne doit pas être vide !";
+                                }
 
                             }else{
                                 error = "L'édition ne doit pas être vide !";
@@ -72,9 +105,6 @@ export  class NewArticle extends Component {
                     }else{
                         error = "Ce code de livre existe déjà";
                    }
-
-
-                   
 
                 }else{
                     error = "Le code du libre ne doit ni dépasser 255 caractères ni être vide !";
@@ -95,6 +125,37 @@ export  class NewArticle extends Component {
             this.setState({
             isLoaded: true,
             check_book_code: result.check_book_code
+            });
+        },
+        (error) => {
+            this.setState({
+            isLoaded: true,
+            error
+            });
+        }
+        )
+    }
+
+    check_barcode = e =>{
+
+        var barcode = this.state.barcode;
+
+        console.log('ch1 = ' +barcode);
+
+        barcode = barcode.replace(/\\/g,"\\\\")
+        barcode = barcode.replace(/\'/g,"\\'")
+        barcode = barcode.replace(/\"/g,"\\\"")
+
+        console.log('ch2 = ' +barcode);
+
+        fetch("http://localhost:3012/check_barcode/" +barcode)
+        .then(res => res.json())
+        .then(
+        (result) => {
+            console.log(result);
+            this.setState({
+            isLoaded: true,
+            check_barcode: result.check_barcode
             });
         },
         (error) => {

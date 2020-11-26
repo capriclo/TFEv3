@@ -35,8 +35,10 @@ connection.connect(function(err) {
     const barcodeRoutes = require('./api/routes/barcode')
     const archived_client = require('./api/routes/archive_client')
     const check_book_code = require('./api/routes/check_book_code')
+    const check_barcode = require('./api/routes/check_barcode')
 
-    newclient.use(morgan('dev'));
+
+   newclient.use(morgan('dev'));
     newclient.use(bodyParser.urlencoded({extended: false}));
     newclient.use(bodyParser.json());
 
@@ -49,6 +51,7 @@ connection.connect(function(err) {
     newclient.use('/barcode', barcodeRoutes)
     newclient.use('/archive_client', archived_client)
     newclient.use('/check_book_code', check_book_code)
+    newclient.use('/check_barcode', check_barcode)
 
 
     //console.log(proxy);
