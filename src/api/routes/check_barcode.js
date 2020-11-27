@@ -9,11 +9,21 @@ let connection = mysql.createConnection({
     database: 'tfe'
 });
 
-var check_book_code;
+var check_barcode;
 
 router.get('/:barcode', (req, res, next) => {
+    console.log("backend !")
+    var barcode = req.params.barcode;
+    console.log('ch1 = ' +barcode);
+
+        barcode = barcode.replace(/\\/g,"\\\\")
+        barcode = barcode.replace(/\'/g,"\\'")
+        barcode = barcode.replace(/\"/g,"\\\"")
+
+        console.log('ch2 = ' +barcode);
+    
     const quote = "\""; 
-    const barcode = "" +quote +req.params.barcode +quote;
+    barcode = "" +quote +barcode +quote;
     console.log("barcode " +barcode);
    var sql = 'SELECT * FROM books WHERE Barcode = ' +barcode;
     console.log(sql);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './NewArticle.css';
-//import axios from 'axios';
-//const instance = axios.create();
+import axios from 'axios';
+const instance = axios.create();
 var error; 
 
 export  class NewArticle extends Component {
@@ -12,7 +12,7 @@ export  class NewArticle extends Component {
             book_code:"",
             supplier:"",
             edition: "",
-            VAT:"",
+            VAT:"6%",
             barcode: "",
             author: "",
             quantity:"",
@@ -53,42 +53,59 @@ export  class NewArticle extends Component {
                                 console.log('TVA V2 = ' +TVA);
 
                                 var barcode_length = this.state.barcode.length;
-                                console.log("longueur barcode = " +barcode_length);
 
                                 if(barcode_length > 1){
-                                    error = "Ce code de livre +titre +fournisseur +edition +barcode fonctionnel";
                                     console.log("barecode = " +this.state.barcode);
-
-                                   /* var ch = this.state.barcode;
-
-                                    console.log('ch1 = ' +ch);
-
-                                    ch = ch.replace(/\\/g,"\\\\")
-                                    ch = ch.replace(/\'/g,"\\'")
-                                    ch = ch.replace(/\"/g,"\\\"")
-
-                                    console.log('ch2 = ' +ch);
-
-                                    console.log("state barcode = ch = "  +this.state.barcode);*/
 
                                     this.check_barcode();
                                     this.check_barcode();
 
                                     console.log("état du check-barcode" +this.state.check_book_code);
 
-                                    //FAIRE UN TABLEAU POUR DONNER LES VALEURS AU BACK_END !!!!
+                                    if(this.state.check_barcode < 1){
+                                        var author_length = this.state.author.length;
 
-                                    //if(this.state.check_book.check_book < 1)
-                                    //code fonctionnel pour l'ajout de livre dans la bdd
-                                        /*   e.preventDefault()
-                                            console.log(this.state)
-                                            instance.post('http://localhost:3012/clients/books', this.state)
-                                            .then(response => {
-                                                console.log(response);
-                                                window.location.href = "http://localhost:3000/allBooks";
-                                            }).catch(error =>{
-                                                console.log(error)
-                                            })*/
+                                        if(author_length > 1){
+                                            var quantity_length = this.state.quantity.length;
+
+                                            if(quantity_length > 0){
+                                               var price_length = this.state.price.length;
+
+                                               if(price_length > 0){
+                                                    var loyalty_discount_length = this.state.loyalty_discount.length;
+                                                    console.log("longueur réduction fidélité = " +loyalty_discount_length);
+
+                                                    if(loyalty_discount_length > 0){
+                                                        //code fonctionnel pour l'ajout de livre dans la bdd
+                                                               e.preventDefault()
+                                                                console.log(this.state)
+                                                                instance.post('http://localhost:3012/clients/books', this.state)
+                                                                .then(response => {
+                                                                    console.log(response);
+                                                                    window.location.href = "http://localhost:3000/allBooks";
+                                                                }).catch(error =>{
+                                                                    console.log(error)
+                                                                })
+                                                    
+                                                    } else{
+                                                        error = "Veillez mentionner la remise fidélité !";
+                                                    }
+
+                                               } else{
+                                                    error = "Veillez mentionner le prix !";
+                                                }
+    
+                                            }else{
+                                                error = "Veillez mentionner la quantité !";
+                                            }
+
+                                        }else{
+                                            error = "Veillez mentionner l'auteur !";
+                                        }
+
+                                    }else{
+                                        error = "Ce code-barre existe déjà";
+                                    }
 
                                 }else{
                                     error = "Le code barre ne doit pas être vide !";
@@ -140,15 +157,9 @@ export  class NewArticle extends Component {
 
         var barcode = this.state.barcode;
 
-        console.log('ch1 = ' +barcode);
+       /* */
 
-        barcode = barcode.replace(/\\/g,"\\\\")
-        barcode = barcode.replace(/\'/g,"\\'")
-        barcode = barcode.replace(/\"/g,"\\\"")
-
-        console.log('ch2 = ' +barcode);
-
-        fetch("http://localhost:3012/check_barcode/" +barcode)
+        fetch("http://localhost:3014/check_barcode/" +barcode)
         .then(res => res.json())
         .then(
         (result) => {
