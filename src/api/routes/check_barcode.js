@@ -12,7 +12,6 @@ let connection = mysql.createConnection({
 var check_barcode;
 
 router.get('/:barcode', (req, res, next) => {
-    console.log("backend !")
     var barcode = req.params.barcode;
     console.log('ch1 = ' +barcode);
 

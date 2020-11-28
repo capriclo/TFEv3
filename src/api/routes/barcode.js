@@ -22,11 +22,21 @@ connection.connect(function(err) {
 let book;
 
 router.get('/:barcode', (req, res, next) => {
+    var barcode = req.params.barcode;
+    var barcodev2 = req.params.barcode;
+    console.log('ch1 = ' +barcode);
+
+    barcode = barcode.replace(/\\/g,"\\\\")
+    barcode = barcode.replace(/\'/g,"\\'")
+    barcode = barcode.replace(/\"/g,"\\\"")
+
+    console.log('ch2 = ' +barcode);
+
     const quote = "\""; 
-    const barcode = "" +quote +req.params.barcode +quote;
-    console.log(barcode);
-   var sql = 'SELECT * FROM books WHERE Barcode = ' +barcode;
-   console.log(sql);
+    barcode = "" +quote +barcode +quote;
+    console.log("barcode " +barcode);
+    var sql = 'SELECT * FROM books WHERE Barcode = ' +barcode;
+    console.log(sql);
         connection.query(sql, function (err, result) {
             console.log(result)
             book = result

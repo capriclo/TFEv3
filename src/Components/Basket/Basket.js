@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import './Basket.css';
 
+var basket = [];
+var i = 0;
+var QuantityList = [];
+let QuantityOptions = [];
+
 
 export class Basket extends Component {
     constructor(props){
@@ -54,15 +59,45 @@ export class Basket extends Component {
                 .then(res => res.json())
                 .then(
                   (result) => {
-                    console.log(result);
+
+                    if (i % 2 === 0){
+
+                        console.log(result.book);
+                        console.log(result.book[0]);
+                        basket[i] = result.book[0];
+                        /*console.log("result.book " +result.book[0]);
+                        console.log("basket = " +basket);
+                        console.log (basket);
+                        console.log ('basket[0]');
+                        console.log(basket[0]);*/
+
+                    }
+                    i++;
+
+                    var Quantity = result.book[0].Quantity;
+                    var QuantityListv2 = [];
+
+
+                    for (let a = 1; a<Quantity+1; a++) {
+                        QuantityListv2 = QuantityListv2 + a;
+                      }
+
+                      QuantityList = QuantityListv2;
+
+                    console.log("QuantityList");
+                    console.log(QuantityList);
+
+
+
                     this.setState({
                       isLoaded: true,
                       books: result.book,
-                      items: this.state.items + this.state.books[0]
+                      items: this.state.items +result.book
 
                     });
-                    console.log(this.state.books)
-                    console.log("items" +this.state.items)
+                    console.log(this.state.books);
+                    console.log(this.state.items);
+
                   },
                   (error) => {
                     this.setState({
@@ -76,6 +111,16 @@ export class Basket extends Component {
 
     render() {
         if(this.state.books){
+            let QuantityList_length = QuantityList.length;
+            console.log("QuantityList_length");
+            console.log(QuantityList_length);
+            for (let a = 0; a<QuantityList_length; a++) {
+                QuantityOptions[a] = <option key={a}>{QuantityList[a]}</option>
+              }
+            console.log("QuantityOptions");
+            console.log(QuantityOptions);
+
+
         return (
             <div>
                 <div className="container emp-profile block_blanc">
@@ -90,7 +135,7 @@ export class Basket extends Component {
                                         <path fillRule="evenodd" d="M11 9H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM5 8a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H5z"/>
                                         <path d="M3 7.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
                                     </svg>
-                                    <svg width="2em" height="2em" viewBox="0 0 16 16" className="bi bi-gift-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="2e:m" height="2em" viewBox="0 0 16 16" className="bi bi-gift-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fillRule="evenodd" d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A2.968 2.968 0 0 1 3 2.506V2.5zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43a.522.522 0 0 0 .023.07zM9 3h2.932a.56.56 0 0 0 .023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0V3z"/>
                                         <path d="M15 7v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7h6zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9H2.5z"/>
                                     </svg>
@@ -107,18 +152,18 @@ export class Basket extends Component {
                                                 <th>Titre</th>
                                                 <th>P. U. HTVA</th>
                                                 <th>TVA</th>
-                                                <th>Qté</th>
+                                                <th>Quantité</th>
                                                 <th>Code barres</th>
                                                 <th>Total TTC</th>
                                                 </tr>
                                             </thead>
-                                            {this.state.books.map(book =>
-                                            <tbody id="items">
+                                            {basket.map(book =>
+                                            <tbody  key={book} id="items">
                                                 <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
                                                     <td>{book.Title}</td>
                                                     <td>{book.Price}</td>
                                                     <td>{book.VAT}</td>
-                                                    <td>1</td>
+                                                    <td><select>{QuantityOptions}</select></td>
                                                     <td>{book.Barcode}
                                                     </td>
                                                     <td>{book.Price +book.Price*0.06}</td>
