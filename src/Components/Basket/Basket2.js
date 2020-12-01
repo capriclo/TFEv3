@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import './Basket.css';
 
 var basket = [];
-var i = 0;
+var b = 0;
 var QuantityList = [];
-let book_basket = 0;
+let book_exist = 0;
 let posts = [];
 let id_basket = 1;
 
@@ -21,7 +21,7 @@ export class Basket extends Component {
             error: null,
             isLoaded: false,
             books: [], 
-            i:0,
+            b:0,
             items: []
           };
 
@@ -57,17 +57,17 @@ export class Basket extends Component {
         console.log(barcode);
 
         const barcode_panier = basket.map( function(livre){if(livre.Barcode == barcode){
-            book_basket = 1
+            book_exist = 1
 
         }else{
-            book_basket = 0
+            book_exist = 0
         }})
-        console.log("book_basket");
-        console.log(book_basket);
-        console.log("book_basket" +book_basket);
-        console.log('book_basket : ' + JSON.stringify(book_basket));
+        console.log("book_exist");
+        console.log(book_exist);
+        console.log("book_exist" +book_exist);
+        console.log('book_exist : ' + JSON.stringify(book_exist));
 
-        if (book_basket == 1){
+        if (book_exist == 1){
             
             const add_quantity = basket.map( function(livre){if(livre.Barcode === barcode){
                 livre.Quantity = livre.Quantity +1;
@@ -80,13 +80,13 @@ export class Basket extends Component {
                 .then(
                   (result) => {
 
-                    if (i % 2 === 0){
+                    if (b % 2 === 0){
  
                         console.log(result.book);
-                        basket[i] = result.book[0];
+                        basket[b] = result.book[0];
 
                     }
-                    i++;
+                    b++;
 
                     var Quantity = result.book[0].Quantity;
                     var QuantityListv2 = [];
