@@ -21,25 +21,35 @@ export class Basket extends Component {
     searchbarcode = item => {
         var barcode = document.getElementById('barcode').value;
         console.log(barcode);
-        this.state.books_basket.map(function(livre){if(livre.barcode === barcode){
-            book_exist = 1
+        this.state.books_basket.map(function(livre){
+            if(livre.barcode === barcode){
+                book_exist = 1
+                
 
-        }else{
-            book_exist = 0
-        }})
+            }else{
+                book_exist = 0
+            }
+        })
         console.log("book_exist");
         console.log(book_exist);
         console.log("book_exist" +book_exist);
         console.log('book_exist : ' + JSON.stringify(book_exist));
-        if (book_exist == 1){
-            
-            //const add_quantity = basket.map( function(livre){if(livre.Barcode === barcode){
-                //livre.Quantity = livre.Quantity +1;
+        if (book_exist === 1){
+            this.state.books_basket.map(function(livrev2){
+                if(livrev2.barcode === barcode){
+                    console.log("livrev2.quantity" +livrev2.quantity);
+                    var new_quantity = livrev2.quantity +1;
+                    console.log("new_quantity" +new_quantity);
+                   //You might have misused the slice method, change slice to splice works for me:
+                   // this.items.splice(index, 1, item)
+                    
+                    
+                }
 
-            //}})
+            })
         }else{
 
-    fetch("http://localhost:3012/barcode/" +barcode)
+            fetch("http://localhost:3012/barcode/" +barcode)
                 .then(res => res.json())
                 .then(
                   (result) => {
