@@ -12,7 +12,7 @@ export class Navbar extends Component {
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav">
                         <li className="nav-item active">
-                            <a className="nav-link" href="/backet">Caisse <span className="sr-only">(current)</span></a>
+                            <a className="nav-link" href="/sellings">Caisse <span className="sr-only">(current)</span></a>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/Allclients">Clients</NavLink>

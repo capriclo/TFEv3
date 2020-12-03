@@ -5,7 +5,6 @@ import Navbar from './Components/Navbar';
 import NewArticle from './Components/NewArticle/NewArticle';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import NewClient from './Components/NewClient/NewClient';
-import Basket from './Components/Basket/Basket';
 import OutOfStock from './Components/OutOfStock/OutOfStock';
 import Order from './Components/Order/Order';
 import ArchivedSuppliers from './Components/ArchivedSuppliers/ArchivedSuppliers';
@@ -17,6 +16,7 @@ import Client from './Components/Client/Client'
 import UpdateClient from './Components/UpdateClient/UpdateClient'
 import AllBooks from './Components/AllBooks/AllBooks'
 import Book from './Components/Book/Book'
+import Sellings from './Components/Sellings/Sellings'
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
       <BrowserRouter> 
         <Navbar />
         <Switch>
-          <Route exact path="/backet" component={Basket} />
+          <Route exact path="/sellings" component={Sellings} />
           <Route exact path="/new_article" component={NewArticle} />
           <Route exact path="/Allclients" component={AllClients} />
           <Route path="/Client" component={Client} />

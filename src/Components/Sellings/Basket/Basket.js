@@ -6,6 +6,9 @@ import './Basket.css';
     var i = 3;
     let book_exist = 0;
     var b = 0;
+    var index_basket = 0;
+    var datav2 = [];
+    var quantity_available = false;
 
 
 export class Basket extends Component {
@@ -13,8 +16,7 @@ export class Basket extends Component {
     constructor(props){
         super(props);
         this.state = {
-            books: [{basket : 1, title : "toto", prix :48.59, tva : "6%", quantity : 5, barcode: "Caca boudin"},
-                    {basket: 2 , title : "tata", prix :100, tva : "6%", quantity : 1, barcode: "Caca boudin2"}],
+            books: [],
             books_basket : []
         }
     }
@@ -30,23 +32,50 @@ export class Basket extends Component {
                 book_exist = 0
             }
         })
-        console.log("book_exist");
-        console.log(book_exist);
-        console.log("book_exist" +book_exist);
-        console.log('book_exist : ' + JSON.stringify(book_exist));
         if (book_exist === 1){
             this.state.books_basket.map(function(livrev2){
                 if(livrev2.barcode === barcode){
-                    console.log("livrev2.quantity" +livrev2.quantity);
-                    var new_quantity = livrev2.quantity +1;
-                    console.log("new_quantity" +new_quantity);
-                   //You might have misused the slice method, change slice to splice works for me:
-                   // this.items.splice(index, 1, item)
-                    
-                    
-                }
+                    if (livrev2.quantity +1 < livrev2.quantity_max){
+                        quantity_available = true;
+                        var new_quantity = livrev2.quantity +1;
+                        console.log("new_quantity" +new_quantity);
+                        console.log("index_basket = " +index_basket);
 
+                        datav2 = {
+                            basket : livrev2.basket,
+                            title : String(livrev2.title),
+                            prix : Number(livrev2.prix),
+                            tva : String(livrev2.tva),
+                            quantity : Number(new_quantity),
+                            quantity_max : Number(livrev2.quantity_max),
+                            barcode : String(livrev2.barcode)
+                        }
+
+                        console.log("datav2 = " +JSON.stringify(datav2));
+
+                    }else{
+                        quantity_available = false;
+                    }
+                                
+                }
+                index_basket++;
             })
+
+            if( quantity_available === true){
+                console.log("quatity_available : " +quantity_available)
+                this.state.books.splice(index_basket, 1, datav2);
+                this.state.books.splice(index_basket-1,1);
+
+                this.setState({
+                    books : this.state.books,
+                    books_basket : Array.from(this.state.books)
+                })
+
+            }
+            
+            index_basket = 0;
+                    
+
         }else{
 
             fetch("http://localhost:3012/barcode/" +barcode)
@@ -60,6 +89,7 @@ export class Basket extends Component {
                             prix : Number(result.book[0].Price),
                             tva : String(result.book[0].VAT),
                             quantity : 1,
+                            quantity_max : Number(result.book[0].Quantity),
                             barcode : String(result.book[0].Barcode),
 
                         }
@@ -67,7 +97,7 @@ export class Basket extends Component {
                         console.log("data = " +JSON.stringify(data));
                         console.log("books_array = " +JSON.stringify(books_array))
 
-                        if (b % 2 === 0){
+                        if (b % 2 === 1){
  
                             this.state.books.push(data);
                         
