@@ -14,9 +14,9 @@ export class Sellings extends Component {
     constructor(props){
         super(props);
         this.state = {
-            books: [{basket : 1, title : "toto", prix :48.59, tva : "6%", quantity : 5, quantity_max : 5, barcode: "Caca boudin"},
-                    {basket: 2 , title : "tata", prix :100, tva : "6%", quantity : 1, quantity_max: 5, barcode: "Caca boudin2"}],
-            books_basket : []
+            books: [],
+            books_basket : [],
+            total : 0
         }
     }
 
@@ -48,6 +48,7 @@ export class Sellings extends Component {
                             tva : String(livrev2.tva),
                             quantity : Number(new_quantity),
                             quantity_max : Number(livrev2.quantity_max),
+                            total_int : Number((livrev2.prix +livrev2.prix*0.06)*Number(new_quantity)),
                             barcode : String(livrev2.barcode)
                         }
 
@@ -90,6 +91,7 @@ export class Sellings extends Component {
                             tva : String(result.book[0].VAT),
                             quantity : 1,
                             quantity_max : Number(result.book[0].Quantity),
+                            total_int :  Number(Number(result.book[0].Price) +Number(result.book[0].Price)*0.06),
                             barcode : String(result.book[0].Barcode),
 
                         }
@@ -122,9 +124,23 @@ export class Sellings extends Component {
 
 
         }
+        this.setState({
+            total : 0
+        })
+
+        {this.state.books_basket.map((book) =>
+            
+            this.setState({
+                total : this.state.total + book.total_int
+            })
+         
+         )}
 
     }
 
+    payement = item => {
+        console.log("Vous avez cliqué sur Payement ! ")
+    }
 
     render() {
         if(this.state.books){
@@ -136,11 +152,6 @@ export class Sellings extends Component {
                                     <input className="form-control mr-sm-2 input-search" id='barcode' type="text" placeholder="Search" aria-label="Search" />
                                     <button onClick={this.searchbarcode} className="btn_search_article search-btn aqua-gradient" name="btnAddMore" value="Rechercher un article">Rechercher un article</button>
                                 <div className="div_icons">
-                                    <svg width="2em" height="2em" viewBox="0 0 16 16" className="bi bi-printer print_icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M11 2H5a1 1 0 0 0-1 1v2H3V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h-1V3a1 1 0 0 0-1-1zm3 4H2a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v1H2a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1z"/>
-                                        <path fillRule="evenodd" d="M11 9H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM5 8a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H5z"/>
-                                        <path d="M3 7.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
-                                    </svg>
                                     <svg width="2e:m" height="2em" viewBox="0 0 16 16" className="bi bi-gift-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fillRule="evenodd" d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A2.968 2.968 0 0 1 3 2.506V2.5zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43a.522.522 0 0 0 .023.07zM9 3h2.932a.56.56 0 0 0 .023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0V3z"/>
                                         <path d="M15 7v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7h6zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9H2.5z"/>
@@ -172,13 +183,18 @@ export class Sellings extends Component {
                                                         <td>{book.quantity}</td>
                                                         <td>{book.barcode}
                                                         </td>
-                                                        <td>{((book.prix +book.prix*0.06)*book.quantity).toFixed(2)}</td>
+                                                        <td>{book.total_int}</td>
                                                     </tr>
                                                 </tbody>
                                             )}
                                         </table>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="total_and_payement">
+                            {this.state.total}
+
+                            <button className="archive-Basket-btn aqua-gradient payement" name="btnAddMore" onClick={this.payement} value="Procéder au payement">Procéder au payement</button>
                             </div>
                         </div>
                     </div>

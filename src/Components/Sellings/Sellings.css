@@ -161,6 +161,7 @@ body{
 }
 
 .total_and_payement{
+    width: 700px;
     margin-top: 0%;
     margin-left: 4%;
     margin-bottom: 8%;
@@ -212,12 +213,12 @@ body{
 }
 
 .btn_search_article{
-    width: 115px;
+    width: 350px;
     text-align: center;
 }
 
 .div_icons{
-    width: 30%;
+    width: 10%;
     text-align: right;
 }
 
