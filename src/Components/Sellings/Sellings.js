@@ -53,6 +53,7 @@ export class Sellings extends Component {
                         }
 
                         console.log("datav2 = " +JSON.stringify(datav2));
+                        
 
                     }else{
                         quantity_available = false;
@@ -69,7 +70,8 @@ export class Sellings extends Component {
 
                 this.setState({
                     books : this.state.books,
-                    books_basket : Array.from(this.state.books)
+                    books_basket : Array.from(this.state.books),
+                    total : this.state.total + (Number(datav2.total_int)/ datav2.quantity)
                 })
 
             }
@@ -105,10 +107,12 @@ export class Sellings extends Component {
                         
                             this.setState({
                                 books : this.state.books,
-                                books_basket : Array.from(this.state.books)
+                                books_basket : Array.from(this.state.books),
+                                total : this.state.total + (data.total_int/data.quantity)
                             })
                             console.log("books after" +JSON.stringify(this.state.books));
                             console.log("books basket" +JSON.stringify(this.state.books_basket));
+                            
             
                         }
                         b++;
@@ -124,7 +128,7 @@ export class Sellings extends Component {
 
 
         }
-        this.setState({
+     /*   this.setState({
             total : 0
         })
 
@@ -134,7 +138,7 @@ export class Sellings extends Component {
                 total : this.state.total + book.total_int
             })
          
-         )}
+         )}*/
 
     }
 
@@ -183,7 +187,7 @@ export class Sellings extends Component {
                                                         <td>{book.quantity}</td>
                                                         <td>{book.barcode}
                                                         </td>
-                                                        <td>{book.total_int}</td>
+                                                        <td>{ Math.round(book.total_int * 100) / 100}</td>
                                                     </tr>
                                                 </tbody>
                                             )}
@@ -192,7 +196,7 @@ export class Sellings extends Component {
                                 </div>
                             </div>
                             <div className="total_and_payement">
-                            {this.state.total}
+                            Total = {Math.round(this.state.total * 100) / 100}
 
                             <button className="archive-Basket-btn aqua-gradient payement" name="btnAddMore" onClick={this.payement} value="Procéder au payement">Procéder au payement</button>
                             </div>
