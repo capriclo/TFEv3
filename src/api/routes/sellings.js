@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 let mysql = require('mysql');
 
-//let allbooks;
-
 let connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -19,38 +17,6 @@ connection.connect(function(err) {
     console.log('Connected to the MySQL server.');
   });
 
-//Handle incomming GET request to /oders
-/*router.get('/', (req, res, next)=> {
-    connection.query("SELECT * FROM books", function (err, result) {
-        if (err) throw err;
-        console.log(result);
-        allbooks = result;
-    
-      });
-      console.log(allbooks);
-    res.status(200).json({
-        books : allbooks
-    })
-    console.log(allbooks);
-})*/
-
-
-/*router.get('/:bookID', (req, res, next)=> {
-    const id = req.params.bookID;
-    sql = 'SELECT * FROM books WHERE idbooks = ' +id;
-        connection.query(sql, function (err, result) {
-            console.log(result);
-            if (err) throw err;
-            book = result;
-          });
-          console.log(book)
-        res.status(200).json({
-            message : 'Bienvenue',
-            book : book
-        })
-
-        res.end();
-})*/
 
 router.post('/', (req,res, next)=> {
     const selling = {
@@ -85,7 +51,47 @@ router.post('/', (req,res, next)=> {
 
 })
 
+router.patch('/:barcode', (req, res, next) => {
+    var barcode = req.params.barcode;
+    console.log('ch1 = ' +barcode);
 
+    barcode = barcode.replace(/\\/g,"\\\\")
+    barcode = barcode.replace(/\'/g,"\\'")
+    barcode = barcode.replace(/\"/g,"\\\"")
+
+    console.log('ch2 = ' +barcode);
+    
+    const quote = "\""; 
+    barcode = "" +quote +barcode +quote;
+    console.log("barcode " +barcode);
+    
+   /*const id = req.params.clientID;
+    console.log(id);
+    const client = {
+        name: req.body.new_name, 
+        first_name : req.body.new_first_name,
+        address: req.body.new_address,
+        email: req.body.new_email,
+        phone: req.body.new_phone
+    };
+    console.log(req.body)
+    console.log(req.body.new_name)
+    console.log(client)
+    res.status(200).json({
+        message: 'Handling POST request to /clients',
+        UpdateClient: id,
+    })
+    res.end();
+    var data = [client.name, client.first_name, client.address, client.email, client.phone, id]
+    connection.query("UPDATE clients SET Name=?, FirstName=?, Address=?, Email=?, Phone=? WHERE IDclients = ?", data,
+    (err, client, field) =>{
+        if (err) {
+            return console.error('error: ' + err.message);
+          }
+
+    })*/
+    
+})
 
 
 module.exports = router;

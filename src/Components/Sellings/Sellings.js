@@ -142,7 +142,7 @@ export class Sellings extends Component {
         if(confirm){
             this.state.books_basket.map(function(livrev3){
 
-                var datav4 = {
+               /* var datav4 = {
                      title : String(livrev3.title),
                      prix : Number(livrev3.prix),
                      tva : String(livrev3.tva),
@@ -160,8 +160,23 @@ export class Sellings extends Component {
                      //window.location.href = "http://localhost:3000/sellings";
                  }).catch(error =>{
                      console.log(error)
-                 })
-             })
+                 })*/
+
+                 console.log("livre3.barcode = " +livrev3.barcode);
+                 var data = {
+                    barcode : livrev3.barcode,
+                    quantity_max : livrev3.quantity_max,
+                }
+                console.log("data = " +data);
+                axios.patch('http://localhost:3014/sellings/'+livrev3.barcode ,data)
+                    .then(res => {
+                    //this.setState({items: res.data});
+                    //this.props.history.push('/items');
+                    //console.log(res);
+                    })
+                    .catch(err => console.log(err));
+            })
+
         }else{
             window.location.href = "http://localhost:3000/sellings";
         }
