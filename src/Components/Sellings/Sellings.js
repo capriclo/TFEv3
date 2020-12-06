@@ -162,13 +162,14 @@ export class Sellings extends Component {
                      console.log(error)
                  })*/
 
-                 console.log("livre3.barcode = " +livrev3.barcode);
-                 var data = {
+                 console.log("livre3.quantity_max = " +Number(livrev3.quantity_max));
+               /*  var datav3 = {
                     barcode : livrev3.barcode,
-                    quantity_max : livrev3.quantity_max,
-                }
-                console.log("data = " +data);
-                axios.patch('http://localhost:3014/sellings/'+livrev3.barcode ,data)
+                    quantity_max : Number(livrev3.quantity_max)
+                }*/
+                var datav3 = [livrev3.barcode,livrev3.quantity_max]
+                console.log("data = " +JSON.stringify(datav3));
+                axios.patch('http://localhost:3014/sellings/'+livrev3.barcode ,datav3)
                     .then(res => {
                     //this.setState({items: res.data});
                     //this.props.history.push('/items');

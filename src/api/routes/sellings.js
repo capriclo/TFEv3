@@ -53,6 +53,8 @@ router.post('/', (req,res, next)=> {
 
 router.patch('/:barcode', (req, res, next) => {
     var barcode = req.params.barcode;
+    var quantity_max = req.body[1];
+    console.log("quantity_max = " +quantity_max);
     console.log('ch1 = ' +barcode);
 
     barcode = barcode.replace(/\\/g,"\\\\")
