@@ -93,7 +93,7 @@ export class NewClient extends Component {
                             instance.post('http://localhost:3012/clients', this.state)
                             .then(response => {
                                 console.log(response);
-                                //window.location.href = "http://localhost:3000/Allclients";
+                                window.location.href = "http://localhost:3000/Allclients";
                             }).catch(error =>{
                                 console.log(error)
                             })

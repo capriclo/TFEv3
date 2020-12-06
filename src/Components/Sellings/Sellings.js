@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import './Sellings.css';
+import axios from 'axios';
+const instance = axios.create();
 
 var books_array = [];
-    var i = 3;
-    let book_exist = 0;
-    var b = 0;
-    var index_basket = 0;
-    var datav2 = [];
-    var quantity_available = false;
+var i = 3;
+let book_exist = 0;
+var b = 0;
+var index_basket = 0;
+var datav2 = [];
+var quantity_available = false;
+var today = new Date();
+var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
 export class Sellings extends Component {
 
@@ -94,7 +98,7 @@ export class Sellings extends Component {
                             quantity : 1,
                             quantity_max : Number(result.book[0].Quantity),
                             total_int :  Number(Number(result.book[0].Price) +Number(result.book[0].Price)*0.06),
-                            barcode : String(result.book[0].Barcode),
+                            barcode : String(result.book[0].Barcode)
 
                         }
                         i++;
@@ -112,8 +116,6 @@ export class Sellings extends Component {
                             })
                             console.log("books after" +JSON.stringify(this.state.books));
                             console.log("books basket" +JSON.stringify(this.state.books_basket));
-                            
-            
                         }
                         b++;
 
@@ -128,22 +130,37 @@ export class Sellings extends Component {
 
 
         }
-     /*   this.setState({
-            total : 0
-        })
-
-        {this.state.books_basket.map((book) =>
-            
-            this.setState({
-                total : this.state.total + book.total_int
-            })
-         
-         )}*/
 
     }
 
-    payement = item => {
+    payement = e => {
         console.log("Vous avez cliqué sur Payement ! ")
+        this.state.books_basket.map(function(livrev3){
+
+
+           var datav4 = {
+                title : String(livrev3.title),
+                prix : Number(livrev3.prix),
+                tva : String(livrev3.tva),
+                quantity : Number(livrev3.quantity),
+                client_id : 1,
+                date_selling : date,
+                total_int : livrev3.total_int
+            }
+            console.log(datav4);
+
+             e.preventDefault()
+            instance.post('http://localhost:3012/sellings', datav4)
+            .then(response => {
+                console.log(response);
+                //window.location.href = "http://localhost:3000/Allclients";
+            }).catch(error =>{
+                console.log(error)
+            })
+
+
+         
+        })
     }
 
     render() {
@@ -161,7 +178,6 @@ export class Sellings extends Component {
                                         <path d="M15 7v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7h6zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9H2.5z"/>
                                     </svg>
                                 </div>
-
                             </div>
                             <div className="tab-content table_previous_purchase">
                                 <div className="tab-pane active" id="home">

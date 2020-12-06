@@ -36,6 +36,7 @@ connection.connect(function(err) {
     const archived_client = require('./api/routes/archive_client')
     const check_book_code = require('./api/routes/check_book_code')
     const check_barcode = require('./api/routes/check_barcode')
+    const sellings = require('./api/routes/sellings')
 
 
    newclient.use(morgan('dev'));
@@ -52,6 +53,7 @@ connection.connect(function(err) {
     newclient.use('/archive_client', archived_client)
     newclient.use('/check_book_code', check_book_code)
     newclient.use('/check_barcode', check_barcode)
+    newclient.use('/sellings', sellings)
 
 
     //console.log(proxy);
