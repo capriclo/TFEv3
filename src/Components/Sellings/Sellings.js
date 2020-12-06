@@ -12,6 +12,7 @@ var datav2 = [];
 var quantity_available = false;
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+var txt;
 
 export class Sellings extends Component {
 
@@ -135,32 +136,35 @@ export class Sellings extends Component {
 
     payement = e => {
         console.log("Vous avez cliqué sur Payement ! ")
-        this.state.books_basket.map(function(livrev3){
+        var confirm = window.confirm("Payement effectué ?");
+        console.log("confirm = " +confirm);
 
+        if(confirm){
+            this.state.books_basket.map(function(livrev3){
 
-           var datav4 = {
-                title : String(livrev3.title),
-                prix : Number(livrev3.prix),
-                tva : String(livrev3.tva),
-                quantity : Number(livrev3.quantity),
-                client_id : 1,
-                date_selling : date,
-                total_int : livrev3.total_int
-            }
-            console.log(datav4);
-
-             e.preventDefault()
-            instance.post('http://localhost:3012/sellings', datav4)
-            .then(response => {
-                console.log(response);
-                //window.location.href = "http://localhost:3000/Allclients";
-            }).catch(error =>{
-                console.log(error)
-            })
-
-
-         
-        })
+                var datav4 = {
+                     title : String(livrev3.title),
+                     prix : Number(livrev3.prix),
+                     tva : String(livrev3.tva),
+                     quantity : Number(livrev3.quantity),
+                     client_id : 1,
+                     date_selling : date,
+                     total_int : livrev3.total_int
+                 }
+                 console.log(datav4);
+     
+                  e.preventDefault()
+                 instance.post('http://localhost:3012/sellings', datav4)
+                 .then(response => {
+                     console.log(response);
+                     //window.location.href = "http://localhost:3000/sellings";
+                 }).catch(error =>{
+                     console.log(error)
+                 })
+             })
+        }else{
+            window.location.href = "http://localhost:3000/sellings";
+        }
     }
 
     render() {
