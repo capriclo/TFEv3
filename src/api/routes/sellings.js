@@ -67,31 +67,23 @@ router.patch('/:barcode', (req, res, next) => {
     barcode = "" +quote +barcode +quote;
     console.log("barcode " +barcode);
     
-   /*const id = req.params.clientID;
-    console.log(id);
-    const client = {
-        name: req.body.new_name, 
-        first_name : req.body.new_first_name,
-        address: req.body.new_address,
-        email: req.body.new_email,
-        phone: req.body.new_phone
-    };
-    console.log(req.body)
-    console.log(req.body.new_name)
-    console.log(client)
+    var quantity = req.body[1] -1;
+    
+
     res.status(200).json({
-        message: 'Handling POST request to /clients',
-        UpdateClient: id,
+        message: 'Handling POST request to /books ',
+        UpdateBooks: barcode,
     })
     res.end();
-    var data = [client.name, client.first_name, client.address, client.email, client.phone, id]
-    connection.query("UPDATE clients SET Name=?, FirstName=?, Address=?, Email=?, Phone=? WHERE IDclients = ?", data,
-    (err, client, field) =>{
+    var data = [quantity, barcode]
+    console.log("data = " +data);
+    connection.query("update books set quantity = quantity -1 where Barcode=" +barcode  ,data,
+    (err, data, field) =>{
         if (err) {
             return console.error('error: ' + err.message);
           }
 
-    })*/
+    })
     
 })
 
