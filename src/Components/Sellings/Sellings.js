@@ -135,14 +135,14 @@ export class Sellings extends Component {
     }
 
     payement = e => {
-        console.log("Vous avez cliqué sur Payement ! ")
+        console.log("Vous avez cliqué sur Payement ! ");
         var confirm = window.confirm("Payement effectué ?");
         console.log("confirm = " +confirm);
 
         if(confirm){
             this.state.books_basket.map(function(livrev3){
 
-               /* var datav4 = {
+                var datav4 = {
                      title : String(livrev3.title),
                      prix : Number(livrev3.prix),
                      tva : String(livrev3.tva),
@@ -157,23 +157,20 @@ export class Sellings extends Component {
                  instance.post('http://localhost:3012/sellings', datav4)
                  .then(response => {
                      console.log(response);
-                     //window.location.href = "http://localhost:3000/sellings";
                  }).catch(error =>{
                      console.log(error)
-                 })*/
+                 })
 
                  console.log("livre3.quantity_max = " +Number(livrev3.quantity_max));
                /*  var datav3 = {
                     barcode : livrev3.barcode,
                     quantity_max : Number(livrev3.quantity_max)
                 }*/
-                var datav3 = [livrev3.barcode,livrev3.quantity_max]
+                var datav3 = [livrev3.barcode,livrev3.quantity_max, livrev3.quantity]
                 console.log("data = " +JSON.stringify(datav3));
                 axios.patch('http://localhost:3014/sellings/'+livrev3.barcode ,datav3)
                     .then(res => {
-                    //this.setState({items: res.data});
-                    //this.props.history.push('/items');
-                    //console.log(res);
+                    window.location.href = "http://localhost:3000/sellings";
                     })
                     .catch(err => console.log(err));
             })

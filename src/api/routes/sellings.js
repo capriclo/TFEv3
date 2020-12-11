@@ -66,8 +66,9 @@ router.patch('/:barcode', (req, res, next) => {
     const quote = "\""; 
     barcode = "" +quote +barcode +quote;
     console.log("barcode " +barcode);
+    console.log("req/body : " +req.body);
     
-    var quantity = req.body[1] -1;
+    var quantity_fin = req.body[1] -req.body[2];
     
 
     res.status(200).json({
@@ -75,9 +76,9 @@ router.patch('/:barcode', (req, res, next) => {
         UpdateBooks: barcode,
     })
     res.end();
-    var data = [quantity, barcode]
+    var data = [quantity_fin, barcode]
     console.log("data = " +data);
-    connection.query("update books set quantity = quantity -1 where Barcode=" +barcode  ,data,
+    connection.query("update books set quantity =" +quantity_fin  +" where Barcode=" +barcode  ,data,
     (err, data, field) =>{
         if (err) {
             return console.error('error: ' + err.message);
