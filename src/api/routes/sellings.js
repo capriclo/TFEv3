@@ -23,6 +23,7 @@ router.post('/', (req,res, next)=> {
         title: req.body.title, 
         price : req.body.prix,
         vat: req.body.tva,
+        barcode : req.body.barcode,
         quantity : req.body.quantity,
         client_id: req.body.client_id,
         date_selling: req.body.date_selling,
@@ -35,10 +36,10 @@ router.post('/', (req,res, next)=> {
         createdSelling: selling
     })
 
-    data = [selling.title, selling.price, selling.vat, selling.quantity, selling.client_id, selling.date_selling, selling.total_int]
+    data = [selling.title, selling.price, selling.vat, selling.barcode ,selling.quantity, selling.client_id, selling.date_selling, selling.total_int]
 
     console.log(data);
-    sql ="INSERT INTO sellings SET Title=?, Price=?, VAT=?, Quantity=?, Client_id=?, Date_sellings=?, Total=?"
+    sql ="INSERT INTO sellings SET Title=?, Price=?, VAT=?, Barcode=?, Quantity=?, Client_id=?, Date_sellings=?, Total=?"
 
     connection.query(sql, data, (err, book, field)=>{
         if (err) {

@@ -147,6 +147,7 @@ export class Sellings extends Component {
                      prix : Number(livrev3.prix),
                      tva : String(livrev3.tva),
                      quantity : Number(livrev3.quantity),
+                     barcode : livrev3.barcode,
                      client_id : 1,
                      date_selling : date,
                      total_int : livrev3.total_int
@@ -162,10 +163,6 @@ export class Sellings extends Component {
                  })
 
                  console.log("livre3.quantity_max = " +Number(livrev3.quantity_max));
-               /*  var datav3 = {
-                    barcode : livrev3.barcode,
-                    quantity_max : Number(livrev3.quantity_max)
-                }*/
                 var datav3 = [livrev3.barcode,livrev3.quantity_max, livrev3.quantity]
                 console.log("data = " +JSON.stringify(datav3));
                 axios.patch('http://localhost:3014/sellings/'+livrev3.barcode ,datav3)
