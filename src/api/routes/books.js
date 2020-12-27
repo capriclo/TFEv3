@@ -7,7 +7,7 @@ let allbooks;
 let connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Root123*',
+    password: '',
     database: 'tfe'
 });
 
