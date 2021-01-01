@@ -37,6 +37,9 @@ connection.connect(function(err) {
     const check_book_code = require('./api/routes/check_book_code')
     const check_barcode = require('./api/routes/check_barcode')
     const sellings = require('./api/routes/sellings')
+    const out_of_stock = require('./api/routes/out_of_stock')
+
+
 
 
    newclient.use(morgan('dev'));
@@ -54,6 +57,7 @@ connection.connect(function(err) {
     newclient.use('/check_book_code', check_book_code)
     newclient.use('/check_barcode', check_barcode)
     newclient.use('/sellings', sellings)
+    newclient.use('/out_of_stock', out_of_stock)
 
 
     //console.log(proxy);

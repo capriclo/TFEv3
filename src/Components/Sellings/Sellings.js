@@ -13,6 +13,7 @@ var quantity_available = false;
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 var txt;
+var result_oos;
 
 export class Sellings extends Component {
 
@@ -21,7 +22,8 @@ export class Sellings extends Component {
         this.state = {
             books: [],
             books_basket : [],
-            total : 0
+            total : 0, 
+            oos: []
         }
     }
 
@@ -167,10 +169,41 @@ export class Sellings extends Component {
                 console.log("data = " +JSON.stringify(datav3));
                 axios.patch('http://localhost:3014/sellings/'+livrev3.barcode ,datav3)
                     .then(res => {
-                    window.location.href = "http://localhost:3000/sellings";
-                    })
-                    .catch(err => console.log(err));
-            })
+                        fetch("http://localhost:3012/sellings")
+                        .then(res => res.json())
+                        .then(
+                            (result) => {
+                                console.log("result " +JSON.stringify(result));
+                            },
+                            // Remarque : il est important de traiter les erreurs ici
+                            // au lieu d'utiliser un bloc catch(), pour ne pas passer à la trappe
+                            // des exceptions provenant de réels bugs du composant.
+                            (error) => {
+                            this.setState({
+                                error
+                            });
+                            }
+                        ).then(
+                            async () => {
+                                const res = await fetch("http://localhost:3012/sellings");
+                                const json = await res.json();
+                                    console.log("result2 " +JSON.stringify(json.oos)); 
+                                    result_oos = json.oos;
+                                    console.log("result.oos " +JSON.stringify(result_oos));
+                                console.log("Hello!");
+                                result_oos.map(function(livre_epuise){
+                                    console.log('livre_epuise = ' +JSON.stringify(livre_epuise));
+                                    e.preventDefault();
+                                    instance.post('http://localhost:3012/out_of_stock', livre_epuise)
+                                    .then(response => {
+                                        console.log(response);
+    
+                                    })
+                                })
+                              }
+                        )
+                     } ).catch(err => console.log(err));}
+            )
 
         }else{
             window.location.href = "http://localhost:3000/sellings";

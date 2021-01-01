@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 let mysql = require('mysql');
+var all_oos_1;
+var oos;
+
 
 let connection = mysql.createConnection({
     host: 'localhost',
@@ -16,6 +19,23 @@ connection.connect(function(err) {
   
     console.log('Connected to the MySQL server.');
   });
+
+
+//en cours de dévellopement 
+router.get('/', (req, res, next) => {
+    var sql = 'SELECT * FROM books WHERE Quantity = 0';
+    console.log(sql);
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("result" +JSON.stringify(result));
+        all_oos_1 = result;
+    })
+    res.status(200).json({
+        oos : all_oos_1
+    })
+    console.log("all_oos " +JSON.stringify(all_oos_1));
+    res.end();
+})
 
 
 router.post('/', (req,res, next)=> {
@@ -35,6 +55,7 @@ router.post('/', (req,res, next)=> {
         message: 'Handling POST request to /sellings',
         createdSelling: selling
     })
+    res.end();
 
     data = [selling.title, selling.price, selling.vat, selling.barcode ,selling.quantity, selling.client_id, selling.date_selling, selling.total_int]
 
