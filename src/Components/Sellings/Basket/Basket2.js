@@ -65,7 +65,7 @@ export class Basket extends Component {
         console.log("book_exist");
         console.log(book_exist);
         console.log("book_exist" +book_exist);
-        console.log('book_exist : ' + JSON.stringify(book_exist));
+        console.log('book_exist : ' +JSON.stringify(book_exist));
 
         if (book_exist == 1){
             

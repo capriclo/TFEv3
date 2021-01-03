@@ -191,15 +191,33 @@ export class Sellings extends Component {
                                     result_oos = json.oos;
                                     console.log("result.oos " +JSON.stringify(result_oos));
                                 console.log("Hello!");
-                                result_oos.map(function(livre_epuise){
-                                    console.log('livre_epuise = ' +JSON.stringify(livre_epuise));
+                               result_oos.map(function(livre_epuise){
+                               /*     console.log('livre_epuise = ' +JSON.stringify(livre_epuise));
                                     e.preventDefault();
                                     instance.post('http://localhost:3012/out_of_stock', livre_epuise)
                                     .then(response => {
                                         console.log(response);
     
-                                    })
+                                    })*/
+                                    fetch("http://localhost:3014/check_oos/" +livre_epuise.idbooks)
+                                    .then(res => res.json())
+                                    .then(
+                                      (result) => {
+                                        console.log(result);
+                                       /* this.setState({
+                                          isLoaded: true,
+                                          check_email: result.check_mail
+                                        });*/
+                                      },
+                                      (error) => {
+                                        /*this.setState({
+                                          isLoaded: true,
+                                          error
+                                        });*/
+                                      }
+                                    )
                                 })
+                               
                               }
                         )
                      } ).catch(err => console.log(err));}

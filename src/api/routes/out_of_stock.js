@@ -23,6 +23,25 @@ connection.connect(function(err) {
   });
 
 
+
+/*router.get('/idbooks:', (req, res, next) => {
+  console.log("________________________________________________________________________________________")
+    const quote = "\""; 
+    const idbooks = "" +quote +req.params.idbooks +quote;
+    console.log("idbooks" +idbooks);
+   /*var sql = 'SELECT * FROM archived_clients WHERE IDclients = ' +IDclients;
+   console.log(sql);
+        connection.query(sql, function (err, result) {
+            check_archived_client = result.length
+          });
+          console.log(check_archived_client)
+        res.status(200).json({
+            message : 'Bienvenue',
+            check_archived_client : check_archived_client
+         })
+})*/
+
+
   router.post('/', (req,res, next)=> {
         console.log('.................................................................................................');
         console.log(req.body);
@@ -59,9 +78,9 @@ connection.connect(function(err) {
 
 })
 
-/*router.delete('/:clientID', (req, res, next) => {
-  const id = req.params.clientID;
-  var delete_request = "DELETE FROM clients WHERE IDclients = " +id;
+router.delete('/:idbooks', (req, res, next) => {
+  const id = req.params.idbooks;
+  /*var delete_request = "DELETE FROM clients WHERE IDclients = " +id;
   connection.query(delete_request, function (err, result) {
     console.log(result);
     if (err) throw err;
@@ -70,8 +89,8 @@ connection.connect(function(err) {
     res.status(200).json({
         message : 'Deleted product'
     })
-    res.end();
-})*/
+    res.end();*/
+})
 
 function postbdd() {
     connection.query(sql, data, (err, client, field)=>{

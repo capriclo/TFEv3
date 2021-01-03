@@ -46,6 +46,8 @@ router.get('/:barcode', (req, res, next) => {
             message : 'Bienvenue',
             book : book
          })
+         res.end();
+
 })
 
 module.exports = router;

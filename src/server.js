@@ -38,6 +38,8 @@ connection.connect(function(err) {
     const check_barcode = require('./api/routes/check_barcode')
     const sellings = require('./api/routes/sellings')
     const out_of_stock = require('./api/routes/out_of_stock')
+    const check_oos = require('./api/routes/check_oos')
+    const history_sales = require('./api/routes/history_sales')
 
 
 
@@ -58,6 +60,8 @@ connection.connect(function(err) {
     newclient.use('/check_barcode', check_barcode)
     newclient.use('/sellings', sellings)
     newclient.use('/out_of_stock', out_of_stock)
+    newclient.use('/check_oos', check_oos)
+    newclient.use('/history_sales', history_sales)
 
 
     //console.log(proxy);

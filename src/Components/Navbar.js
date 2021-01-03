@@ -29,7 +29,7 @@ export class Navbar extends Component {
                             <a className="nav-link" href="/types">Types</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/supplier">Fournisseurs</a>
+                            <a className="nav-link" href="/sales_history">Historique des ventes</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/waiting_for_reception">Colis en attente</a>

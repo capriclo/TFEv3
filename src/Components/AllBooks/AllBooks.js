@@ -90,11 +90,7 @@ export class AllBooks extends Component {
                 <div className="container emp-profile">
                     <div>
                         <form className="form-inline md-form mr-auto mb-4">
-                            <a href="/new_article"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" onChange={this.onChange} value="Nouvel article"/></a>
-                            <a href="/archived_clients"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" onChange={this.onChange} value="Voir les clients archivés"/></a>
-                            <a href="/client"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" onChange={this.onChange} value="Archiver le client"/></a>
-                            <input className="form-control mr-sm-2 input-search" type="text" placeholder="Search" aria-label="Search" />
-                            <input type="submit" className="search-btn aqua-gradient" name="btnAddMore" value="Search"/>
+                          <a href="/new_article"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" onChange={this.onChange} value="Nouvel article"/></a>
                         </form>
                     </div> 
                     

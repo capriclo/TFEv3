@@ -7,7 +7,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import NewClient from './Components/NewClient/NewClient';
 import OutOfStock from './Components/OutOfStock/OutOfStock';
 import Order from './Components/Order/Order';
-import ArchivedSuppliers from './Components/ArchivedSuppliers/ArchivedSuppliers';
+import SalesHistory from './Components/SalesHistory/SalesHistory';
 import Reception from './Components/Reception/Reception';
 import ArchivedClients from './Components/ArchivedClients/ArchivedClients';
 import "./Fichiers_JSON/clientdata.json"
@@ -31,7 +31,7 @@ function App() {
           <Route exact path="/new_client" component={NewClient} />
           <Route exact path="/out-of-stocks" component={OutOfStock} />
           <Route exact path="/order" component={Order} />
-          <Route exact path="/supplier" component={ArchivedSuppliers} />
+          <Route exact path="/sales_history" component={SalesHistory} />
           <Route exact path="/reception" component={Reception} />
           <Route exact path="/archived_clients" component={ArchivedClients} />
           <Route path="/UpdateClient" component={UpdateClient} />
