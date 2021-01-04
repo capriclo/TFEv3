@@ -62,8 +62,8 @@ export class Client extends Component {
         instance.post('http://localhost:3012/archive_client', this.state)
         .then(response => {
             console.log(response);
-            console.log(this.state.client[0].IDclients)
-                fetch("http://localhost:3012/check_archived_client/" +this.state.client[0].IDclients)
+            console.log(this.state.client[0].idclients)
+                fetch("http://localhost:3012/check_archived_client/" +this.state.client[0].idclients)
                 .then(res => res.json())
                 .then(
                   (result) => {
@@ -83,7 +83,7 @@ export class Client extends Component {
                 console.log(this.state.archive_client)
                 if(this.state.check_archived_client < 1)
                   {
-                    instance.delete("http://localhost:3012/archive_client/" +this.state.client[0].IDclients)
+                    instance.delete("http://localhost:3012/archive_client/" +this.state.client[0].idclients)
                     .then(
                         (result) => {
                           console.log(result);
@@ -122,7 +122,7 @@ export class Client extends Component {
                                 <div className="col-md-6 client_id">
                                     <div className="profile-head">
                                         <h1>
-                                            Client {client.IDclients}
+                                            Client {client.idclients}
                                         </h1>
                                         <h4>
                                             Points de fidélité : <span>175</span>
@@ -130,7 +130,6 @@ export class Client extends Component {
                                     </div>
                                 </div>
                                 <div className="col-md-2 client_button">
-                                    <a href="/archived_clients"><input className="archive-client-btn aqua-gradient" name="btnAddMore" onChange={this.onChange} value="Archiver le client"/></a>
                                     <a href={"/UpdateClient/" +this.state.test2 }><input className="update-client aqua-gradient" name="btnAddMore" onChange={this.onChange} value="Mettre à jour le client"/></a>
                                     <input className="update-client aqua-gradient" name="btnAddMore" onChange={this.onChange} onClick={this.archive_client} value="Archiver le client"/>
                                 </div>
@@ -150,7 +149,7 @@ export class Client extends Component {
                                                     <label>ID</label>
                                                 </div>
                                                 <div className="caracteristicsv2">
-                                                    <p>{client.IDclients}</p>
+                                                    <p>{client.idclients}</p>
                                                 </div>
                                             </div>
                                             <div className="row">

@@ -42,7 +42,7 @@ connection.connect(function(err) {
         console.log(req.body);
         console.log(req.body.client[0].Name);
         const client = {
-            IDclients: req.body.client[0].IDclients,
+            IDclients: req.body.client[0].idclients,
             Name: req.body.client[0].Name, 
             FirstName : req.body.client[0].FirstName,
             Address: req.body.client[0].Address,
@@ -60,7 +60,7 @@ connection.connect(function(err) {
 
     console.log(data);
 
-    sql ="INSERT INTO archived_clients SET IDclients=?, Name=?, FirstName=?, Address=?, Email=?, Phone=? "
+    sql ="INSERT INTO archived_clients SET idclients=?, Name=?, FirstName=?, Address=?, Email=?, Phone=? "
         
     res.end();
     postbdd();

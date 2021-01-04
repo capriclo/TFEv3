@@ -2,7 +2,42 @@ import React, { Component } from 'react';
 import './OutOfStock.css';
 
 export class OutOfStock extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          error: null,
+          isLoaded: false,
+          OutOfStock: []
+        };
+      }
+
+    componentDidMount() {
+        fetch("http://localhost:3014/out_of_stock")
+          .then(res => res.json())
+          .then(
+            (result) => {
+              console.log(result);
+              this.setState({
+                isLoaded: true,
+                OutOfStock: result.all_oos
+              });
+              console.log(this.state);
+            },
+            // Remarque : il est important de traiter les erreurs ici
+            // au lieu d'utiliser un bloc catch(), pour ne pas passer à la trappe
+            // des exceptions provenant de réels bugs du composant.
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              });
+            }
+          )
+    }
     render() {
+        if(this.state.OutOfStock) {
+            console.log(this.state +"test1")
+            console.log(this.state.OutOfStock)
         return (
             <div>
                 <div className="container emp-profile">
@@ -10,7 +45,6 @@ export class OutOfStock extends Component {
                         <form className="form-inline md-form mr-auto mb-4">
                             <input className="form-control mr-sm-2 input-search" type="text" placeholder="Search" aria-label="Search" />
                             <input type="submit" className="search-btn aqua-gradient" name="btnAddMore" value="Search"/>
-                            <input type="submit" className="search-btn aqua-gradient btn_delete_selected_article" name="btnAddMore" value="Supprimer les articles sélectionnés"/>
                         </form>
                     </div> 
                     <div className="tab-content table_previous_purchase">
@@ -19,62 +53,37 @@ export class OutOfStock extends Component {
                                 <table className="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th></th>
+                                            <th>id</th>
                                             <th>Titre</th>
-                                            <th>Edition</th>
+                                            <th>Code du livre</th>
                                             <th>Fournisseur</th>
+                                            <th>Edition</th>
+                                            <th>TVA</th>
+                                            <th>Code barre</th>
+                                            <th>Autheur</th>
+                                            <th>Quantité</th>
                                             <th>Prix</th>
-                                            <th>Actions</th>
+                                            <th>Réduction fidélité</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="items">
-                                        <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
-                                            <td>
-                                                <input type="checkbox" id="scales" name="scales" checked />
-                                            </td>
-                                            <td>Hunger Games Tome 1</td>
-                                            <td>Galimard</td>
-                                            <td>Chante Livre</td>
-                                            <td>12.50€</td>
-                                            <td className="action_reorder">Recommander</td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody id="items">
-                                        <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
-                                            <td>
-                                                <input type="checkbox" id="scales" name="scales" />
-                                            </td>
-                                            <td>Rose fanée</td>
-                                            <td>Galimard</td>
-                                            <td>Chante Livre</td>
-                                            <td>15€</td>
-                                            <td className="action_reorder">Recommander</td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody id="items">
-                                        <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
-                                            <td>
-                                                <input type="checkbox" id="scales" name="scales" checked />
-                                            </td>
-                                            <td>Le lambeau</td>
-                                            <td>Galimard</td>
-                                            <td>Chante Livre</td>
-                                            <td>20€</td>
-                                            <td className="action_reorder">Recommander</td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody id="items">
-                                    <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
-                                            <td>
-                                                <input type="checkbox" id="scales" name="scales"  />
-                                            </td>
-                                            <td>Chanson douce</td>
-                                            <td>Galimard</td>
-                                            <td>Chante Livre</td>
-                                            <td>22€</td>
-                                            <td className="action_reorder">Recommander</td>
-                                        </tr>
-                                    </tbody>
+                                    { 
+                                        this.state.OutOfStock.map(book => 
+                                        <tbody id="items">
+                                            <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
+                                                <td>{book.idbooks}</td>
+                                                <td>{book.Title}</td>
+                                                <td>{book.Book_code}</td>
+                                                <td>{book.Supplier}</td>
+                                                <td>{book.Edition}</td>
+                                                <td>{book.VAT}</td>
+                                                <td>{book.Barcode}</td>
+                                                <td>{book.Author}</td>
+                                                <td>{book.Quantity}</td>
+                                                <td>{book.Price}</td>
+                                                <td>{book.Loyalty_discount}</td>
+                                            </tr>
+                                        </tbody>)
+                                    }
                                 </table>         
                             </div>
                         </div>
@@ -82,6 +91,7 @@ export class OutOfStock extends Component {
                 </div>
             </div>
         )
+        }
     }
 }
 

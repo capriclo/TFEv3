@@ -68,7 +68,9 @@ router.post('/', (req,res, next)=> {
 })
 
 router.get('/:clientID', (req, res, next) => {
+    console.log('¨**********************************************')
     const id = req.params.clientID;
+    //const idc = 7;
     sql = 'SELECT * FROM clients WHERE IDclients = ' +id;
         connection.query(sql, function (err, result) {
             console.log(result);

@@ -15,6 +15,7 @@ var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getD
 var txt;
 var result_oos;
 
+
 export class Sellings extends Component {
 
     constructor(props){
@@ -23,7 +24,8 @@ export class Sellings extends Component {
             books: [],
             books_basket : [],
             total : 0, 
-            oos: []
+            oos: [],
+            test_bw : 0
         }
     }
 
@@ -190,37 +192,49 @@ export class Sellings extends Component {
                                     console.log("result2 " +JSON.stringify(json.oos)); 
                                     result_oos = json.oos;
                                     console.log("result.oos " +JSON.stringify(result_oos));
-                                console.log("Hello!");
-                               result_oos.map(function(livre_epuise){
-                               /*     console.log('livre_epuise = ' +JSON.stringify(livre_epuise));
-                                    e.preventDefault();
-                                    instance.post('http://localhost:3012/out_of_stock', livre_epuise)
-                                    .then(response => {
-                                        console.log(response);
-    
-                                    })*/
-                                    fetch("http://localhost:3014/check_oos/" +livre_epuise.idbooks)
-                                    .then(res => res.json())
-                                    .then(
-                                      (result) => {
-                                        console.log(result);
-                                       /* this.setState({
-                                          isLoaded: true,
-                                          check_email: result.check_mail
-                                        });*/
-                                      },
-                                      (error) => {
-                                        /*this.setState({
-                                          isLoaded: true,
-                                          error
-                                        });*/
-                                      }
-                                    )
-                                })
-                               
-                              }
-                        )
-                     } ).catch(err => console.log(err));}
+                            console.log("Hello!")}
+                            ).then(
+                                console.log("rentrer2"),
+                                /*if(result_oos){
+                                    result_oos.map(function(livre_epuise){
+                                        console.log("rentrer")
+                                    /*     console.log('livre_epuise = ' +JSON.stringify(livre_epuise));
+                                         e.preventDefault();
+                                         instance.post('http://localhost:3012/out_of_stock', livre_epuise)
+                                         .then(response => {
+                                             console.log(response);
+         
+                                         })*/
+                                       /*  do {
+                                             fetch("http://localhost:3012/check_oos/" +livre_epuise.idbooks)
+                                             //fetch("http://localhost:3012/oos2/")
+                                             .then(res => res.json())
+                                             .then(
+                                             (result) => {
+                                                 console.log(result);
+                                              this.setState({
+                                                 //isLoaded: true,
+                                                 //check_email: result.check_mail
+                                                 test_bw : this.state.test_bw +1
+                                                 });
+                                             },
+                                             (error) => {
+                                                 /*this.setState({
+                                                 isLoaded: true,
+                                                 error
+                                                 });*/
+                                         /*    }
+                                             )
+                                           } while (this.state.test_bw < 2)
+                                           this.setState({
+                                             //isLoaded: true,
+                                             //check_email: result.check_mail
+                                             test_bw : 0
+                                             });
+                                     })
+                                }*/
+                            )
+                     }).catch(err => console.log(err));}
             )
 
         }else{

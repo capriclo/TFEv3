@@ -71,7 +71,7 @@ export class AllClients extends Component {
                                                 <td >{client.Address}</td>
                                                 <td >{client.Email}</td>
                                                 <td >{client.Phone}</td>
-                                                <td><a href={"http://localhost:3000/Client/" +client.IDclients}>Accéder au client</a></td>
+                                                <td><a href={"http://localhost:3000/Client/" +client.idclients }>Accéder au client</a></td>
                                             </tr>
                                         </tbody>)
                                     }

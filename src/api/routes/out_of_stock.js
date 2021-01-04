@@ -6,6 +6,7 @@ let mysql = require('mysql');
 let all_archived_clients;
 let data;
 let sql;
+let oos;
 
 let connection = mysql.createConnection({
     host: 'localhost',
@@ -24,22 +25,20 @@ connection.connect(function(err) {
 
 
 
-/*router.get('/idbooks:', (req, res, next) => {
-  console.log("________________________________________________________________________________________")
-    const quote = "\""; 
-    const idbooks = "" +quote +req.params.idbooks +quote;
-    console.log("idbooks" +idbooks);
-   /*var sql = 'SELECT * FROM archived_clients WHERE IDclients = ' +IDclients;
-   console.log(sql);
-        connection.query(sql, function (err, result) {
-            check_archived_client = result.length
-          });
-          console.log(check_archived_client)
-        res.status(200).json({
-            message : 'Bienvenue',
-            check_archived_client : check_archived_client
-         })
-})*/
+  router.get('/', (req, res, next)=> {
+    console.log ('oos2');
+    connection.query("SELECT * FROM out_of_stock", function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        oos = result;
+    
+      });
+      console.log("sellings " +JSON.stringify(oos));
+    res.status(200).json({
+        all_oos : oos
+    })
+    console.log(all_oos);
+})
 
 
   router.post('/', (req,res, next)=> {
@@ -57,8 +56,7 @@ connection.connect(function(err) {
             Author: req.body.Author,
             Quantity: req.body.Quantity,
             Price: req.body.Price,
-            Loyalty_discount: req.body.Loyalty_discount
-            
+            Loyalty_discount: req.body.Loyalty_discount 
         };
     console.log('const out_of_stock' +JSON.stringify(out_of_stock))
     

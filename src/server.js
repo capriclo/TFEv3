@@ -40,6 +40,7 @@ connection.connect(function(err) {
     const out_of_stock = require('./api/routes/out_of_stock')
     const check_oos = require('./api/routes/check_oos')
     const history_sales = require('./api/routes/history_sales')
+    const oos2 = require('./api/routes/oos2')
 
 
 
@@ -62,6 +63,7 @@ connection.connect(function(err) {
     newclient.use('/out_of_stock', out_of_stock)
     newclient.use('/check_oos', check_oos)
     newclient.use('/history_sales', history_sales)
+    newclient.use('/oos2', oos2)
 
 
     //console.log(proxy);
