@@ -124,10 +124,8 @@ button {
   min-height: 100vh;
 }
 
-body {
-  font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
-  font-weight: 400;
-  font-size: 14px;
+body{
+  background: -webkit-linear-gradient(left, #3931af, #00c6ff);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -158,24 +156,7 @@ h6 {
   font-size: 13px;
 }
 
-/* ==========================================================================
-   #BACKGROUND
-   ========================================================================== */
-.bg-blue {
-  background: #2c6ed5;
-}
 
-.bg-red {
-  background: #fa4251;
-}
-
-.bg-gra-01 {
-  background: -webkit-gradient(linear, left bottom, left top, from(#fbc2eb), to(#a18cd1));
-  background: -webkit-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
-  background: -moz-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
-  background: -o-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
-  background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%);
-}
 
 /* ==========================================================================
    #SPACING
@@ -325,10 +306,14 @@ input {
   font-family: inherit;
 }
 
+.input_css{
+  background-color: #eee;
+}
+
 .input-icon {
   position: absolute;
   font-size: 18px;
-  color: #ccc;
+  color: #000;
   right: 8px;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -342,13 +327,13 @@ input {
 .input-group {
   position: relative;
   margin-bottom: 33px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .input--style-3 {
   padding: 5px 0;
   font-size: 16px;
-  color: #ccc;
+  color: #000;
   background: transparent;
 }
 
@@ -480,44 +465,44 @@ input {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  background: #fff;
-}
-
-.card-3 {
   background: #000;
+}
+/*
+.card-3 {
+  background:#fff;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  /*-webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
   width: 100%;
   display: table;
-}
+}*/
 
-.card-3 .card-heading {
+.lol .card-heading {
   background: url("NewClient.jpg") top left/cover no-repeat;
   display: table-cell;
   width: 50%;
 }
 
-.card-3 .card-body {
+.lol .card-body {
   padding: 57px 65px;
   padding-bottom: 65px;
   display: table-cell;
 }
 
 @media (max-width: 767px) {
-  .card-3 {
+  .lol {
     display: block;
   }
-  .card-3 .card-heading {
+  .lol .card-heading {
     display: block;
     width: 100%;
     padding-top: 400px;
     background-position: center center;
   }
-  .card-3 .card-body {
+  .lol .card-body {
     display: block;
     width: 100%;
     padding: 37px 30px;

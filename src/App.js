@@ -17,6 +17,7 @@ import UpdateClient from './Components/UpdateClient/UpdateClient'
 import AllBooks from './Components/AllBooks/AllBooks'
 import Book from './Components/Book/Book'
 import Sellings from './Components/Sellings/Sellings'
+import Supplier from './Components/NewSupplier/NewSupplier'
 
 
 function App() {
@@ -35,13 +36,9 @@ function App() {
           <Route exact path="/reception" component={Reception} />
           <Route exact path="/archived_clients" component={ArchivedClients} />
           <Route path="/UpdateClient" component={UpdateClient} />
-          <Route exact path="/allBooks" component={AllBooks} />
+          <Route exact path="/allBooks" compimprimeonent={AllBooks} />
           <Route path="/Book" component={Book} />
-
-
-
-
-
+          <Route path="/supplier" component={Supplier} />
           
         </Switch>
        

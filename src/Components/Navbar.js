@@ -23,7 +23,7 @@ export class Navbar extends Component {
                             </NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/editions">Editions</a>
+                            <a className="nav-link" href="/supplier">Fournisseurs</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/types">Types</a>

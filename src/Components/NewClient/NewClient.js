@@ -8,8 +8,6 @@ var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getD
 
 
 export class NewClient extends Component {
-    
-    
 
     constructor(props){
         super(props);
@@ -122,41 +120,66 @@ export class NewClient extends Component {
         const {name, first_name, address,birthdate, email, phone} = this.state
         return (
             <div>
-                <div className="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins">
-                    <div className="wrapper wrapper--w780">
-                        <div className="card card-3">
-                            <div className="card-heading"></div>
-                            <div className="card-body">
-                                <h2 className="title">Nouveau Client</h2>
-                                <form >
-                                    <div className="input-group">
-                                        <input className="input--style-3" type="text" placeholder="Nom" name="name" value={name} onChange={this.onChange} required/>
-                                    </div>
-                                    <div className="input-group">
-                                        <input className="input--style-3" type="text" placeholder="Prénom" name="first_name"  value={first_name} onChange={this.onChange} required/>
-                                    </div>
-                                    <div className="input-group">
-                                        <input className="input--style-3" type="text" placeholder="Adresse" name="address"  value={address} onChange={this.onChange} required/>
-                                    </div>
-                                    <div className="input-group">
-                                        <input className="input--style-3" type="date" placeholder="BirthDate" name="birthdate" value={birthdate} onChange={this.onChange} required/>
-                                    </div>
-                                    <div className="input-group">
-                                        <input className="input--style-3" type="email" placeholder="Email" name="email" value={email} onChange={this.onChange} required />
-                                    </div>
-                                    <div className="input-group">
-                                        <input className="input--style-3" type="text" placeholder="Phone" name="phone" value={phone} onChange={this.onChange} required/>
-                                    </div>
-                                </form>
-                                <div className="p-t-10">
-                                        <button className="btn btn--pill btn--green" onClick={this.submitHandler}>Créer le client</button>
-                                    </div>
-                            <p className="error">{error}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-            </div>
+            <div  className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+               <div  className="wrapper wrapper--w680">
+                   <div  className="card card-4">
+                       <div  className="card-body">
+                           <h2  className="title_new_article">Nouveau Client</h2>
+                           <form>
+                               <div  className="row row-space">
+                                   <div  className='row3'>
+                                       <div  className="input-group">
+                                           <label  className="label">Nom</label>
+                                           <input  className="input--style-4" type="text" name="name" onChange={this.onChange} required />
+                                       </div>
+                                   </div>
+                                   <div  className="row-3">
+                                       <div  className="input-group">
+                                           <label  className="label">Prénom</label>
+                                           <input  className="input--style-4" type="text" name="firstname" onChange={this.onChange} required/>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div  className="row row-space">
+                                   <div  className='row3'>
+                                       <div  className="input-group">
+                                           <label  className="label">Adresse</label>
+                                           <input  className="input--style-4" type="text" name="address" onChange={this.onChange} required/>
+                                       </div>
+                                   </div>
+                                   <div  className="row-3">
+                                       <div  className="input-group">
+                                           <label  className="label">Date de naissance</label>
+                                           <input  className="input--style-4" type="date" name="birthdate" onChange={this.onChange} required/>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div  className="row row-space">
+                                   <div  className="row-3">
+                                       <div  className="input-group">
+                                           <label  className="label">Email</label>
+                                           <input  className="input--style-4" type="email" name="email" onChange={this.onChange} required/>
+                                       </div>
+                                   </div>
+                                   <div  className="row-3">
+                                       <div  className="input-group">
+                                           <label  className="label">Numéro de téléphone</label>
+                                           <input  className="input--style-4" type="text" name="tel" onChange={this.onChange} required/>
+                                       </div>
+                                   </div>
+                               </div>
+                           </form>
+                           <p className="error">{error}</p>
+                           <br />
+                           <div  className="p-t-15">
+                                   <button  className="btn btn--radius-2 btn--blue" onClick={this.submitHandler} >Submit</button>
+                               </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           
+       </div>
         )
     }
 }
