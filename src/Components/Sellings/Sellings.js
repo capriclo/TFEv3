@@ -16,6 +16,7 @@ var txt;
 var result_oos;
 
 
+
 export class Sellings extends Component {
 
     constructor(props){
@@ -89,12 +90,11 @@ export class Sellings extends Component {
                     
 
         }else{
-
             fetch("http://localhost:3012/barcode/" +barcode)
                 .then(res => res.json())
                 .then(
                   (result) => {
-                      var title = result.book[0].Title
+                      var title = result.book[0].Title;
                         var data = {
                             basket : i,
                             title : String(title),
@@ -123,8 +123,6 @@ export class Sellings extends Component {
                             console.log("books basket" +JSON.stringify(this.state.books_basket));
                         }
                         b++;
-
-
                   },
                   (error) => {
                     this.setState({
@@ -192,19 +190,36 @@ export class Sellings extends Component {
                                     console.log("result2 " +JSON.stringify(json.oos)); 
                                     result_oos = json.oos;
                                     console.log("result.oos " +JSON.stringify(result_oos));
-                            console.log("Hello!")}
-                            ).then(
+                                console.log("Hello!")
+                            }
+                            ).then( 
+                                e.preventDefault(),
                                 console.log("rentrer2"),
-                                /*if(result_oos){
+                               // if(result_oos){
                                     result_oos.map(function(livre_epuise){
                                         console.log("rentrer")
-                                    /*     console.log('livre_epuise = ' +JSON.stringify(livre_epuise));
+                                         console.log('livre_epuise = ' +JSON.stringify(livre_epuise));
                                          e.preventDefault();
                                          instance.post('http://localhost:3012/out_of_stock', livre_epuise)
                                          .then(response => {
                                              console.log(response);
          
-                                         })*/
+                                         })
+                                         console.log("delete_idbooks" +livre_epuise.idbooks);
+                                         instance.delete("http://localhost:3012/books/" +livre_epuise.idbooks)
+                                        .then(
+                                            (result) => {
+                                            console.log(result);
+                                            window.location.href = "http://localhost:3000/sellings";
+                                            },
+                                            (error) => {
+                                            this.setState({
+                                                isLoaded: true,
+                                                error
+                                            });
+                                            }
+                                        )
+                                        })
                                        /*  do {
                                              fetch("http://localhost:3012/check_oos/" +livre_epuise.idbooks)
                                              //fetch("http://localhost:3012/oos2/")
@@ -230,12 +245,13 @@ export class Sellings extends Component {
                                              //isLoaded: true,
                                              //check_email: result.check_mail
                                              test_bw : 0
-                                             });
-                                     })
-                                }*/
+                                             });*/
+
+                                  //  }
                             )
+                            
                      }).catch(err => console.log(err));}
-            )
+          )
 
         }else{
             window.location.href = "http://localhost:3000/sellings";

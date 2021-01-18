@@ -59,5 +59,19 @@ router.get('/:bookID', (req, res, next)=> {
     })
 })*/
 
+router.delete('/:bookID', (req, res, next) => {
+    const id = req.params.bookID;
+    var delete_request = "DELETE FROM books WHERE idbooks = " +id;
+    connection.query(delete_request, function (err, result) {
+      console.log(result);
+      if (err) throw err;
+      console.log("Number of records deleted: " + result.affectedRows);
+    });
+      res.status(200).json({
+          message : 'Deleted product'
+      })
+      res.end();
+  })
+
 
 module.exports = router;

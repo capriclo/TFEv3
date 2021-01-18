@@ -36,7 +36,7 @@ function App() {
           <Route exact path="/reception" component={Reception} />
           <Route exact path="/archived_clients" component={ArchivedClients} />
           <Route path="/UpdateClient" component={UpdateClient} />
-          <Route exact path="/allBooks" compimprimeonent={AllBooks} />
+          <Route exact path="/allBooks" component={AllBooks} />
           <Route path="/Book" component={Book} />
           <Route path="/supplier" component={Supplier} />
           
