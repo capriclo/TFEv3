@@ -41,6 +41,7 @@ connection.connect(function(err) {
     const check_oos = require('./api/routes/check_oos')
     const history_sales = require('./api/routes/history_sales')
     const oos2 = require('./api/routes/oos2')
+    const barcode_client = require('./api/routes/barcode_client')
 
 
 
@@ -64,6 +65,7 @@ connection.connect(function(err) {
     newclient.use('/check_oos', check_oos)
     newclient.use('/history_sales', history_sales)
     newclient.use('/oos2', oos2)
+    newclient.use('/barcode_client', barcode_client)
 
 
     //console.log(proxy);

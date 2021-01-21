@@ -18,6 +18,8 @@ export class NewClient extends Component {
             birthdate:"",
             email: "",
             phone:"",
+            customer_card :"",
+            customer_code :"",
             datecreationclient: date,
             error: null,
             isLoaded: false,
@@ -44,7 +46,6 @@ export class NewClient extends Component {
         console.log(date);
         console.log(this.state);
         if(name_length > 1 &&  name_length < 55){
-            console.log(name_length);
             var first_name_length = this.state.first_name.length;
             if(first_name_length > 1 &&  first_name_length < 65){
                 console.log(this.state.email)
@@ -84,9 +85,13 @@ export class NewClient extends Component {
                         });
                     }
                     ) 
+                    console.log("there");
                     if(this.state.check_phone < 1){
-                         //code fonctionnel
-                         e.preventDefault()
+                        var customer_card_length = this.state.customer_card.length;
+                        console.log(customer_card_length);
+                        if(customer_card_length <255){
+                            //code fonctionnel
+                            e.preventDefault()
                             console.log(this.state)
                             instance.post('http://localhost:3012/clients', this.state)
                             .then(response => {
@@ -96,6 +101,9 @@ export class NewClient extends Component {
                                 console.log(error)
                             })
 
+                        }else{
+                            error = "Le code barre de la carte client ne doit pas dépasser 55 caractères !";
+                        }
                     }else{
                         error = "Ce numéro de téléphone existe déjà";
                     }
@@ -168,6 +176,21 @@ export class NewClient extends Component {
                                        </div>
                                    </div>
                                </div>
+                               <div  className="row row-space">
+                                   <div  className="row-3">
+                                       <div  className="input-group">
+                                           <label  className="label">Code barre de la carte client</label>
+                                           <input  className="input--style-4" type="text" name="customer_card" onChange={this.onChange} required/>
+                                       </div>
+                                   </div>
+                                   <div  className="row-3">
+                                       <div  className="input-group">
+                                           <label  className="label">Code client</label>
+                                           <input  className="input--style-4" type="text" name="customer_code" onChange={this.onChange} required/>
+                                       </div>
+                                   </div>
+                               </div>
+                               
                            </form>
                            <p className="error">{error}</p>
                            <br />

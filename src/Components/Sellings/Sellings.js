@@ -14,6 +14,8 @@ var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 var txt;
 var result_oos;
+var actual_client=0;
+
 
 
 
@@ -23,11 +25,66 @@ export class Sellings extends Component {
         super(props);
         this.state = {
             books: [],
+            client: [],
             books_basket : [],
             total : 0, 
             oos: [],
             test_bw : 0
         }
+    }
+
+    searchclient = item2 => {
+        var barcode_client = document.getElementById('search_client').value;
+       console.log("search_client");
+      //  console.log(document.getElementById('search_client').value);
+        console.log(barcode_client);
+        
+        fetch("http://localhost:3012/barcode_client/" +barcode_client)
+               .then(res => res.json())
+                .then(
+                  (result) => {
+                      console.log("result_client " +JSON.stringify(result))
+                      var Name = result.client[0].Name;
+                      console.log("Name" +Name);
+                        var data_client = {
+                            idclients: result.client[0].idclients,
+                            Name: String(Name),
+                            FirstName: String(result.client[0].FirstName),
+                            Address: String(result.client[0].Address),
+                            BirthDate: Date(result.client[0].BirthDate),
+                            Email: String(result.client[0].Email),
+                            Phone: String(result.client[0].Phone),
+                            Customer_card: String(result.client[0].Customer_card),
+                            Fidelity_points : 176,
+                            DateCreationClient: String(result.client[0].DateCreationClient)
+                        }
+                        console.log("data_client = " +JSON.stringify(data_client));
+                        actual_client = result.client[0].idclients;
+                        //console.log("books_array = " +JSON.stringify(books_array))
+
+                       /* if (c % 2 === 1){
+ 
+                            this.state.books.push(data);*/
+                        
+                            this.setState({
+                                client : data_client,
+                               // books_basket : Array.from(this.state.books),
+                                //total : this.state.total + (data.total_int/data.quantity)
+                            })
+                            console.log("client after" +JSON.stringify(this.state.client));
+                            //console.log("books basket" +JSON.stringify(this.state.books_basket));
+                        //}
+                       // b++;
+                  },
+                  (error) => {
+                    this.setState({
+                      isLoaded: true,
+                      error
+                    });
+                  })
+
+        
+        
     }
 
     searchbarcode = item => {
@@ -143,14 +200,14 @@ export class Sellings extends Component {
 
         if(confirm){
             this.state.books_basket.map(function(livrev3){
-
+                console.log("actual_client = " +actual_client)
                 var datav4 = {
                      title : String(livrev3.title),
                      prix : Number(livrev3.prix),
                      tva : String(livrev3.tva),
                      quantity : Number(livrev3.quantity),
                      barcode : livrev3.barcode,
-                     client_id : 1,
+                     client_id : actual_client,
                      date_selling : date,
                      total_int : livrev3.total_int
                  }
@@ -182,7 +239,8 @@ export class Sellings extends Component {
                             this.setState({
                                 error
                             });
-                            }
+                            },
+                            window.location.href = "http://localhost:3000/sellings"
                         ).then(
                             async () => {
                                 const res = await fetch("http://localhost:3012/sellings");
@@ -266,7 +324,7 @@ export class Sellings extends Component {
                         <div className="basket_block">
                             <div className="div_search_article">
                                     <input className="form-control mr-sm-2 input-search" id='barcode' type="text" placeholder="Search" aria-label="Search" />
-                                    <button onClick={this.searchbarcode} className="btn_search_article search-btn aqua-gradient" name="btnAddMore" value="Rechercher un article">Rechercher un article</button>
+                                    <button onClick={this.searchbarcode} className="btn_search_article search-btn aqua-gradient" value="Rechercher un article">Rechercher un article</button>
                                 <div className="div_icons">
                                     <svg width="2e:m" height="2em" viewBox="0 0 16 16" className="bi bi-gift-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fillRule="evenodd" d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A2.968 2.968 0 0 1 3 2.506V2.5zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43a.522.522 0 0 0 .023.07zM9 3h2.932a.56.56 0 0 0 .023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0V3z"/>
@@ -311,6 +369,77 @@ export class Sellings extends Component {
 
                             <button className="archive-Basket-btn aqua-gradient payement" name="btnAddMore" onClick={this.payement} value="Procéder au payement">Procéder au payement</button>
                             </div>
+                        </div>
+                        <div className="client_block">
+                            <div className="div_search_article">
+                                    <input className="form-control mr-sm-2 input-search" type="text" id="search_client" name="search_client" placeholder="Search" aria-label="Search" />
+                                    <input className="btn_search_article search-btn aqua-gradient"  onClick={this.searchclient} name="btn_search_client" value="Rechercher un client" readOnly/>
+                            </div>
+                            <i className="fas fa-print"></i> 
+                            <form method="post">
+                                <div className="row">
+                                    <div className="col-md-6 client_id">
+                                        <div className="profile-head">
+                                                    <h1>
+                                                        Client {this.state.client.idclients}
+                                                    </h1>
+                                                    <h4>
+                                                        Points de fidélité : <span>{this.state.client.Fidelity_points}</span>
+                                                    </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row client_data">
+                                    <div className="col-md-8">
+                                        <div className="tab-content profile-tab" id="myTabContent">
+                                            <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                <div className="row">
+                                                    <div className="caracteristics">
+                                                        <label>Nom</label>
+                                                    </div>
+                                                    <div className="caracteristics">
+                                                        <p>{this.state.client.Name}</p>
+                                                    </div>
+                                                    <div className="caracteristicsv2">
+                                                        <label>ID</label>
+                                                    </div>
+                                                    <div className="caracteristicsv2">
+                                                        <p>{this.state.client.idclients}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                <div className="caracteristics">
+                                                        <label>Prénom</label>
+                                                    </div>
+                                                    <div className="caracteristics">
+                                                        <p>{this.state.client.FirstName}</p>
+                                                    </div>
+                                                    <div className="caracteristicsv2">
+                                                        <label>Email</label>
+                                                    </div>
+                                                    <div className="caracteristicsv2">
+                                                        <p>{this.state.client.Email}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                <div className="caracteristics">
+                                                        <label>Adresse</label>
+                                                    </div>
+                                                    <div className="caracteristics">
+                                                        <p>{this.state.client.Address}</p>
+                                                    </div>
+                                                    <div className="caracteristicsv2">
+                                                        <label>Téléphone</label>
+                                                    </div>
+                                                    <div className="caracteristicsv2">
+                                                        <p>{this.state.client.Phone}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
