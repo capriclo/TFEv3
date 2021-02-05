@@ -91,6 +91,8 @@ export class AllBooks extends Component {
                     <div>
                         <form className="form-inline md-form mr-auto mb-4">
                           <a href="/new_article"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" onChange={this.onChange} value="Nouvel article"/></a>
+                          <input className="form-control mr-sm-2 input-search" type="text" placeholder="Search" aria-label="Search" />
+                          <input type="submit" className="search-btn aqua-gradient" name="btnAddMore" value="Search"/>
                         </form>
                     </div> 
                     
@@ -127,7 +129,7 @@ export class AllBooks extends Component {
                                                 <td>{book.Quantity}</td>
                                                 <td>{book.Price}</td>
                                                 <td>{book.Loyalty_discount}</td>
-                                                <td><a href={"http://localhost:3000/Book/1"}>Accéder au client</a></td>
+                                                <td><a href={"http://localhost:3000/Book/" +book.idbooks}>Accéder à l'article</a></td>
                                             </tr>
                                         </tbody>)
                                     }
