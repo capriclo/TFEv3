@@ -1,6 +1,12 @@
+import { getByDisplayValue } from '@testing-library/react';
 import React, { Component } from 'react';
 import './AllBooks.css';
 //import axios from 'axios';
+
+
+//var searchBarV2 = window.getElementById('searchBarV2');
+//searchBarV2.addEventListener('click', this.Search());
+
 
 export class AllBooks extends Component {
     constructor(props) {
@@ -10,7 +16,19 @@ export class AllBooks extends Component {
           isLoaded: false,
           books: []
         };
+        
       }
+
+      Search = e => {
+        
+        console.log('Loris');
+        console.log("Coucou +" +this.state.books);
+
+      }
+
+      //code xaml en commentaire
+      /*<input type="submit" className="search-btn aqua-gradient" onClick={this.Search} name="btnAddMore" value="Search"/> */
+      
 
 
       componentDidMount() {
@@ -36,47 +54,6 @@ export class AllBooks extends Component {
             }
           )
     }
-        /*axios.get("http://localhost:3014/books",{headers: {
-          'Access-Control-Allow-Origin': '*',
-        },})
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                books: result.books
-              });
-              console.log(this.state);
-            },
-            // Remarque : il est important de traiter les erreurs ici
-            // au lieu d'utiliser un bloc catch(), pour ne pas passer à la trappe
-            // des exceptions provenant de réels bugs du composant.
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )*/
-
-          //actios fonctionnel bizarre
-         /* axios.get('http://localhost:3014/books', {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          },
-
-          }).then(function (response) {
-            console.log(this.state);
-              console.log(response.data);
-              this.setState({
-                isLoaded: true,
-                books: response.data
-              });
-              console.log(this.state);
-          }).catch(function (error) {
-
-        });*/
-            //}
 
       onChange = e =>{}
 
@@ -91,8 +68,8 @@ export class AllBooks extends Component {
                     <div>
                         <form className="form-inline md-form mr-auto mb-4">
                           <a href="/new_article"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" onChange={this.onChange} value="Nouvel article"/></a>
-                          <input className="form-control mr-sm-2 input-search" type="text" placeholder="Search" aria-label="Search" />
-                          <input type="submit" className="search-btn aqua-gradient" name="btnAddMore" value="Search"/>
+                          <input className="form-control mr-sm-2 input-search" id="searchBar" type="text" placeholder="Search" aria-label="Search" />
+                          <button className="SearchButtonV2" id="searchBarV2">Rechercher</button>
                         </form>
                     </div> 
                     
@@ -117,7 +94,7 @@ export class AllBooks extends Component {
                                     </thead>
                                     { 
                                         this.state.books.map(book => 
-                                        <tbody id="items">
+                                        <tbody id="items" key={book.Title}>
                                             <tr data-toggle="collapse" data-target="#demo1" className="accordion-toggle ">
                                                 <td>{book.Title}</td>
                                                 <td>{book.Book_code}</td>

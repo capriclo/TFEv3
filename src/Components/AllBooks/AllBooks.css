@@ -166,3 +166,14 @@ body{
 .btn_all_clients{
     margin-right: 10%;
 }
+
+.SearchButtonV2{
+    border-radius: 1.5rem;
+    width: 10%;
+    height: 40px ;
+    padding: 1%;
+    font-weight: 500;
+    background-color: #6495ED;
+    color: white;
+    cursor: pointer;
+}
