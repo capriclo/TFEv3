@@ -1,14 +1,14 @@
 import { getByDisplayValue } from '@testing-library/react';
 import React, { Component } from 'react';
 import './AllBooks.css';
+import {useState } from "react";
 //import axios from 'axios';
 
 
-//var searchBarV2 = window.getElementById('searchBarV2');
-//searchBarV2.addEventListener('click', this.Search());
 
 
 export class AllBooks extends Component {
+  
     constructor(props) {
         super(props);
         this.state = {
@@ -16,15 +16,21 @@ export class AllBooks extends Component {
           isLoaded: false,
           books: []
         };
-        
       }
+      
 
       Search = e => {
+
+          e.preventDefault();
+          
         
-        console.log('Loris');
-        console.log("Coucou +" +this.state.books);
+        console.log(e.target.value);
+        
+        //console.log("Coucou +" +this.state.books);
+
 
       }
+
 
       //code xaml en commentaire
       /*<input type="submit" className="search-btn aqua-gradient" onClick={this.Search} name="btnAddMore" value="Search"/> */
@@ -68,8 +74,8 @@ export class AllBooks extends Component {
                     <div>
                         <form className="form-inline md-form mr-auto mb-4">
                           <a href="/new_article"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" onChange={this.onChange} value="Nouvel article"/></a>
-                          <input className="form-control mr-sm-2 input-search" id="searchBar" type="text" placeholder="Search" aria-label="Search" />
-                          <button className="SearchButtonV2" id="searchBarV2">Rechercher</button>
+                          <input className="form-control mr-sm-2 input-search" onChange= {this.Search} id="searchBar" type="text" placeholder="Search" aria-label="Search" />
+                          <button className="SearchButtonV2" id="searchBarV2" >Rechercher</button>
                         </form>
                     </div> 
                     

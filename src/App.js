@@ -18,6 +18,7 @@ import AllBooks from './Components/AllBooks/AllBooks'
 import Book from './Components/Book/Book'
 import Sellings from './Components/Sellings/Sellings'
 import Supplier from './Components/NewSupplier/NewSupplier'
+import AllBooksFunction from './Components/AllBooks/AllBooksFunction'
 
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
           <Route exact path="/allBooks" component={AllBooks} />
           <Route path="/Book" component={Book} />
           <Route path="/supplier" component={Supplier} />
-          
+          <Route path="/all_books_function" component={AllBooksFunction} />
         </Switch>
        
       </BrowserRouter>
