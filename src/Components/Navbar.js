@@ -17,8 +17,8 @@ export class Navbar extends Component {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/Allclients">Clients</NavLink>
                         </li>
-                        <li className="nav-item dropdown">
-                            <NavLink className="nav-link dropdown-toggle" to="/allBooks" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/allBooks">
                                 Articles
                             </NavLink>
                         </li>
@@ -42,9 +42,6 @@ export class Navbar extends Component {
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/reception">Réceptions</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/all_books_function">AllBooksFunction</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/help">?</a>
