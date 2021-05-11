@@ -13,7 +13,7 @@ function AllBooksV2(){
             (result) => setBooks(result.books)
           )
     }, [] )
-    
+
 
     const handleSearchTerm = (e) => {
         let value = e.target.value;
@@ -27,7 +27,7 @@ function AllBooksV2(){
             <div className="container emp-profile">
                 <div>
                     <form className="form-inline md-form mr-auto mb-4">
-                        <a href="/new_article"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" value="Nouvel article"/></a>
+                        <a href="/new_article"><input className="archive-client-btn btn_all_clients aqua-gradient" name="btnAddMore" value="Nouvel article" readOnly/></a>
                         <input className="form-control mr-sm-2 input-search" id="searchBar" type="text" placeholder="Search" onChange={handleSearchTerm} aria-label="Search" />
                     </form>
                 </div> 

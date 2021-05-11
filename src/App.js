@@ -11,13 +11,13 @@ import SalesHistory from './Components/SalesHistory/SalesHistory';
 import Reception from './Components/Reception/Reception';
 import ArchivedClients from './Components/ArchivedClients/ArchivedClients';
 import "./Fichiers_JSON/clientdata.json"
-import AllClients from './Components/AllClients/AllClients'
 import Client from './Components/Client/Client'
 import UpdateClient from './Components/UpdateClient/UpdateClient'
 import Book from './Components/Book/Book'
 import Sellings from './Components/Sellings/Sellings'
 import Supplier from './Components/NewSupplier/NewSupplier'
 import AllBooksFunction from './Components/AllBooks/AllBooksFunction'
+import AllClientsV2 from './Components/AllClients/AllClientsV2'
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
         <Switch>
           <Route exact path="/sellings" component={Sellings} />
           <Route exact path="/new_article" component={NewArticle} />
-          <Route exact path="/Allclients" component={AllClients} />
+          <Route exact path="/Allclients" component={AllClientsV2} />
           <Route path="/Client" component={Client} />
           <Route exact path="/new_client" component={NewClient} />
           <Route exact path="/out-of-stocks" component={OutOfStock} />
