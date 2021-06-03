@@ -142,7 +142,7 @@ export class Client extends Component {
                                                 <div className="caracteristics">
                                                     <label>Nom</label>
                                                 </div>
-                                                <div className="caracteristics">
+                                                <div className="caracteristicsv2">
                                                     <p>{client.Name}</p>
                                                 </div>
                                                 <div className="caracteristicsv2">

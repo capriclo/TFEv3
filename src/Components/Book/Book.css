@@ -1,6 +1,17 @@
 body{
     background: -webkit-linear-gradient(left, #3931af, #00c6ff);
 }
+
+label{
+    width: 600%;
+    margin-top: 2rem;
+    margin-left: 3rem;
+}
+
+p{
+    width: 600%;
+    margin-left: 3rem;
+}
 .emp-profile{
     padding: 3%;
     margin-top: 3%;
@@ -108,15 +119,15 @@ body{
 }
 
 .caracteristics{
-    padding-right: 0%;
-    width: 25%;
+    padding-right: 10%;
+    width: 15%;
     padding-left: 2%;
 }
 
 .caracteristicsv2{
     padding-right: 0%;
-    width: 25%;
-    padding-left: 10%;
+    width: 50%;
+    padding-left: 0%;
 }
 
 .table_previous_purchase{

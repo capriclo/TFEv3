@@ -44,7 +44,7 @@ export class Navbar extends Component {
                             <a className="nav-link" href="/reception">Réceptions</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/testClient">TestClient</a>
+                            <a className="nav-link" href="/bookFunction">TestBook</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/help">?</a>

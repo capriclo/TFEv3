@@ -66,7 +66,7 @@ function AllBooksV2(){
                                                 <td>{val.Quantity}</td>
                                                 <td>{val.Price}</td>
                                                 <td>{val.Loyalty_discount}</td>
-                                                <td><a href={"http://localhost:3000/Book/" +val.idbooks}>Accéder à l'article</a></td>
+                                                <td><a href={"http://localhost:3000/bookFunction/" +val.idbooks}>Accéder à l'article</a></td>
                                             </tr>
                                         </tbody> 
                                 })}
