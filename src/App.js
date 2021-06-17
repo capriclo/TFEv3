@@ -19,7 +19,7 @@ import AllBooksFunction from './Components/AllBooks/AllBooksFunction'
 import AllClientsV2 from './Components/AllClients/AllClientsV2'
 import SalesHistoryV2 from './Components/SalesHistory/SaleHistoryV2'
 import BookFunction from './Components/Book/BookFunction'
-
+import NewArticleFunction from './Components/NewArticle/NewArticleFunction'
 
 function App() {
   return (
@@ -40,7 +40,7 @@ function App() {
           <Route exact path="/allBooks" component={AllBooksFunction} />
           <Route path="/Book" component={Book} />
           <Route path="/supplier" component={Supplier} />
-          <Route path="/bookFunction" component={BookFunction} />
+          <Route path="/NewArticleFunction" component={NewArticleFunction} />
           
         </Switch>
        
