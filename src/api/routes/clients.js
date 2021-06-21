@@ -125,18 +125,20 @@ router.delete('/:clientID', (req, res, next) => {
 })
 
 router.post('/books/', (req, res, next)=> {
+    console.log("req.body.title = " +JSON.stringify(req.body[0].title));
     const book = {
-        title: req.body.title, 
-        book_code : req.body.book_code,
-        supplier: req.body.supplier, 
-        edition : req.body.edition,
-        vatrate : req.body.VAT,
-        barcode : req.body.barcode,
-        author : req.body.author,
-        quantity : req.body.quantity,
-        price : req.body.price,
-        loyalty_discount : req.body.loyalty_discount
+        title: req.body[0].title, 
+        book_code : req.body[0].book_code,
+        supplier: req.body[0].supplier, 
+        edition : req.body[0].edition,
+        vatrate : req.body[0].VAT,
+        barcode : req.body[0].barcode,
+        author : req.body[0].author,
+        quantity : req.body[0].quantity,
+        price : req.body[0].price,
+        loyalty_discount : req.body[0].loyalty_discount
     };
+    //console.log("book =  " +JSON.stringify(book));
     res.status(202).json({
         message : 'Book was created',
         book: book

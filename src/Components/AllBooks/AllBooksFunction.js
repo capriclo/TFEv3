@@ -20,7 +20,7 @@ function AllBooksV2(){
         setSearchTerm(value);
     };
 
-    console.log(searchTerm);
+    console.log("books = " +JSON.stringify(books));
     
     return(
         <>

@@ -39,12 +39,13 @@ export  class NewArticle extends Component {
             if(title_length > 1 && title_length < 255){
                 var book_code_length = this.state.book_code.length;
                 console.log("la longueur du code est :" +book_code_length)
+                
                 if(book_code_length > 1 && book_code_length < 255){
                     
                     if(this.state.check_book_code < 1){
                         var supplier_length = this.state.supplier.length;
+
                         if(supplier_length > 1){
-                            error="supplier ok"
                             var edition_length = this.state.edition.length;
 
                             if(edition_length > 1){
@@ -55,7 +56,7 @@ export  class NewArticle extends Component {
                                 var barcode_length = this.state.barcode.length;
 
                                 if(barcode_length > 1){
-                                    console.log("barecode = " +this.state.barcode);
+                                    console.log("barcode = " +this.state.barcode);
 
                                     this.check_barcode();
                                     this.check_barcode();
