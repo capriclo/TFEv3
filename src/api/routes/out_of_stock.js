@@ -27,7 +27,8 @@ connection.connect(function(err) {
 
   router.get('/', (req, res, next)=> {
     console.log ('oos2');
-    connection.query("SELECT * FROM out_of_stock", function (err, result) {
+    sql = 'SELECT * FROM books WHERE Quantity = ' +0;
+    connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log(result);
         oos = result;

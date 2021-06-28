@@ -132,7 +132,7 @@ function NewArticleFunction(){
                                                                     instance.post('http://localhost:3012/clients/books', book)
                                                                     .then(response => {
                                                                         console.log(response);
-                                                                       // window.location.href = "http://localhost:3000/allBooks";
+                                                                        window.location.href = "http://localhost:3000/allBooks";
                                                                     }).catch(error =>{
                                                                         console.log(error)
                                                                     })

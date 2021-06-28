@@ -12,6 +12,7 @@ function BookFunction(){
     var number_of_book =  url.substr(+35)
     console.log("number of book : " +number_of_book);
 
+
     useEffect(() => {
         fetch("http://localhost:3014/books/" +number_of_book)
           .then(res => res.json())
@@ -20,6 +21,19 @@ function BookFunction(){
           )
     }, [] )
 
+    const DeleteBook = userId => {
+        console.log('fonction delete id = ' +userId);
+        
+          // Note: I'm using arrow functions inside the `.fetch()` method.
+          // This makes it so you don't have to bind component functions like `setState`
+          // to the component.
+          fetch("http://localhost:3014/books/delete/" + userId).then((response) => {
+            return response.json();
+          }).then((result) => {
+            window.location.href = "http://localhost:3000/allBooks";
+          });
+    }
+
     console.log("book = " +JSON.stringify(book));
 
     return(
@@ -27,7 +41,7 @@ function BookFunction(){
             <div>
                 <div className="container emp-profile">
                 {book.map((val) =>{
-                   return <form method="post" key={val.idbooks}>
+                   return <div key={val.idbooks}>
                         <div className="row">
                             <div className="col-md-4">
                                 <div className="profile-img">
@@ -42,8 +56,8 @@ function BookFunction(){
                                 </div>
                             </div>
                             <div className="col-md-2 client_button">
-                                <a href={"/UpdateClient/" +val.idbooks }><input className="update-client aqua-gradient" name="btnAddMore" value="Mettre à jour le livre"/></a>
-                                <input className="update-client aqua-gradient" name="btnAddMore" value="Archiver le livre"/>
+                                <button  className="btn btn--radius-2 btn--blue " onClick={e => DeleteBook(val.idbooks)} >Supprimer</button>
+                                <button  className="btn btn--radius-2 btn--blue btn_delete" onClick={e => DeleteBook(val.idbooks)} >Supprimer</button>
                             </div>
                         </div>
                         <div className="row">
@@ -52,59 +66,57 @@ function BookFunction(){
                                         <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                             <div className="row">
                                                 <div className="caracteristics">
-                                                    <label>Nom</label>
-                                                    <p>{val.Title}</p>
+                                                    <label>Nom : <h4 className="valeurBook">{val.Title}</h4></label>
                                                 </div>
                                                 <div className="caracteristicsv2">
-                                                    <label>Code du livre</label>
-                                                    <p>{val.Book_code}</p>
+                                                    <label>Code du livre : <h4 className="valeurBook">{val.Book_code}</h4></label>
+                                                   
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="caracteristics">
-                                                    <label>Fournisseur</label>
-                                                    <p>{val.Supplier}</p>
+                                                    <label>Fournisseur : <h4 className="valeurBook">{val.Supplier}</h4></label>
                                                 </div>
                                                 <div className="caracteristicsv2">
-                                                    <label>Edition</label>
-                                                    <p>{val.Edition}</p>
+                                                    <label>Edition : <h4 className="valeurBook">{val.Edition}</h4></label>
+                                                    
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="caracteristics">
-                                                    <label>Taux de TVA</label>
-                                                    <p>{val.VAT}</p>
+                                                    <label>Taux de TVA : <h4 className="valeurBook">{val.VAT}</h4></label>
+                                                    
                                                 </div>
                                                 <div className="caracteristicsv2">
-                                                    <label>Code-barres</label>
-                                                    <p>{val.Barcode}</p>
+                                                    <label>Code-barres : <h4 className="valeurBook">{val.Barcode}</h4></label>
+                                                    
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="caracteristics">
-                                                    <label>Autheur</label>
-                                                    <p>{val.Author}</p>
+                                                    <label>Autheur : <h4 className="valeurBook">{val.Author}</h4></label>
+                                                    
                                                 </div>
                                                 <div className="caracteristicsv2">
-                                                    <label>Quantité</label>
-                                                    <p>{val.Quantity}</p>
+                                                    <label>Quantité : <h4 className="valeurBook">{val.Quantity}</h4></label>
+                                                    
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="caracteristics">
-                                                    <label>Price</label>
-                                                    <p>{val.Price}</p>
+                                                    <label>Price : <h4 className="valeurBook">{val.Price}</h4></label>
+                                                    
                                                 </div>
                                                 <div className="caracteristicsv2">
-                                                    <label>Loyalty_discount</label>
-                                                    <p>{val.Loyalty_discount}</p>
+                                                    <label>Loyalty_discount : <h4 className="valeurBook">{val.Loyalty_discount}</h4></label>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                         })}
                     </div>
                 </div>

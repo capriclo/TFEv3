@@ -21,7 +21,8 @@ connection.connect(function(err) {
 
 //Handle incomming GET request to /oders
 router.get('/', (req, res, next)=> {
-    connection.query("SELECT * FROM books", function (err, result) {
+  sql = 'SELECT * FROM books WHERE Quantity != ' +0;
+  connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log(result);
         allbooks = result;
@@ -59,8 +60,9 @@ router.get('/:bookID', (req, res, next)=> {
     })
 })*/
 
-router.delete('/:bookID', (req, res, next) => {
+router.get('/delete/:bookID', (req, res, next) => {
     const id = req.params.bookID;
+    console.log("id = " +id)
     var delete_request = "DELETE FROM books WHERE idbooks = " +id;
     connection.query(delete_request, function (err, result) {
       console.log(result);
