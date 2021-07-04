@@ -2,10 +2,8 @@ import React from 'react';
 import './App.css';
 
 import Navbar from './Components/Navbar';
-import NewArticle from './Components/NewArticle/NewArticle';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import NewClient from './Components/NewClient/NewClient';
-import OutOfStock from './Components/OutOfStock/OutOfStock';
 import Order from './Components/Order/Order';
 import Reception from './Components/Reception/Reception';
 import ArchivedClients from './Components/ArchivedClients/ArchivedClients';
@@ -20,13 +18,14 @@ import SalesHistoryV2 from './Components/SalesHistory/SaleHistoryV2'
 import BookFunction from './Components/Book/BookFunction'
 import NewArticleFunction from './Components/NewArticle/NewArticleFunction'
 import OutOfStockFunction from './Components/OutOfStock/OutOfStockFunction';
+import UpdateBooks from './Components/UpdateBooks/UpdateBooks';
 
 function App() {
   return (
       <BrowserRouter> 
         <Navbar />
         <Switch>
-          <Route exact path="/sellings" component={Sellings} />
+          <Route exact path="/sellings" component={Sellings} />s
           <Route exact path="/new_article" component={NewArticleFunction} />
           <Route exact path="/Allclients" component={AllClientsV2} />
           <Route path="/Client" component={Client} />
@@ -41,7 +40,7 @@ function App() {
           <Route exact path="/supplier" component={Supplier} />
           <Route exact path="/NewArticleFunction" component={NewArticleFunction} />
           <Route exact path="/out-of-stocks" component={OutOfStockFunction} />
-          
+          <Route path="/UpdateBooks" component={UpdateBooks} />   
           
         </Switch>
        

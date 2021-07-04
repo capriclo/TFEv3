@@ -18,6 +18,19 @@ function OutOfStockFunction(){
         setSearchTerm(value);
     };
 
+    const DeleteBook = userId => {
+        console.log('fonction delete id = ' +userId);
+        
+          // Note: I'm using arrow functions inside the `.fetch()` method.
+          // This makes it so you don't have to bind component functions like `setState`
+          // to the component.
+          fetch("http://localhost:3014/books/delete/" + userId).then((response) => {
+            return response.json();
+          }).then((result) => {
+            window.location.href = "http://localhost:3000/allBooks";
+          });
+    }
+
     console.log("books = " +JSON.stringify(books))
 
     return(
@@ -63,6 +76,7 @@ function OutOfStockFunction(){
                                                 <td>{val.Quantity}</td>
                                                 <td>{val.Price}</td>
                                                 <td>{val.Loyalty_discount}</td>
+                                                <td><a href="#" onClick={e => DeleteBook(val.idbooks)} >Supprimer</a></td>
                                             </tr>
                                         </tbody> 
                                 })}

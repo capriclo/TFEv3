@@ -10,7 +10,7 @@ function BookFunction(){
     var true_url = "" +quote +url +quote;
     console.log(true_url);
     var number_of_book =  url.substr(+35)
-    console.log("number of book : " +number_of_book);
+
 
 
     useEffect(() => {
@@ -20,6 +20,11 @@ function BookFunction(){
             (result) => setBook(result.book)
           )
     }, [] )
+
+    const UpdateBook = userId => {
+        console.log('fonction delete id = ' +userId);
+        window.location.href = "http://localhost:3000/UpdateBooks/" +userId;
+    }
 
     const DeleteBook = userId => {
         console.log('fonction delete id = ' +userId);
@@ -56,7 +61,7 @@ function BookFunction(){
                                 </div>
                             </div>
                             <div className="col-md-2 client_button">
-                                <button  className="btn btn--radius-2 btn--blue " onClick={e => DeleteBook(val.idbooks)} >Supprimer</button>
+                                <button  className="btn btn--radius-2 btn--blue " onClick={e => UpdateBook(val.idbooks)} >Modifier</button>
                                 <button  className="btn btn--radius-2 btn--blue btn_delete" onClick={e => DeleteBook(val.idbooks)} >Supprimer</button>
                             </div>
                         </div>
@@ -66,7 +71,7 @@ function BookFunction(){
                                         <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                             <div className="row">
                                                 <div className="caracteristics">
-                                                    <label>Nom : <h4 className="valeurBook">{val.Title}</h4></label>
+                                                    <label>Titre : <h4 className="valeurBook">{val.Title}</h4></label>
                                                 </div>
                                                 <div className="caracteristicsv2">
                                                     <label>Code du livre : <h4 className="valeurBook">{val.Book_code}</h4></label>

@@ -1,12 +1,12 @@
-import './NewArticle.css';
+import './UpdateBooks.css';
 import React from 'react';
 import {useState, useEffect} from "react";
 import axios from 'axios';
 const instance = axios.create();
 
+function UpdateBooks(){
 
-function NewArticleFunction(){
-    
+    // Variables en commun avec NewArticleFunction
     const [form_filling_error, setFormFillingError] = useState([]);
     const [form_loading, setFormLoading] = useState([]);
     const [title, setTitle] = useState([]);
@@ -25,6 +25,18 @@ function NewArticleFunction(){
     const [check_barcode_load, setCheckBarcodeLoad] = useState(false);
     const [check_barcode_error, setCheckBarcodeError] = useState(false);
 
+    //Variables communes avec BookFunction.
+    const [book, setBook] = useState([]);
+    var url = document.URL;
+    var number_of_book =  url.substr(+34);
+
+    useEffect(() => {
+        fetch("http://localhost:3014/books/" +number_of_book)
+          .then(res => res.json())
+          .then(
+            (result) => setBook(result.book)
+          )
+    }, [] )
     
     const check_code = e =>{
         setCheckBookLoad(false);
@@ -82,56 +94,61 @@ function NewArticleFunction(){
 
     const submitHandler = e => {
         var Tva = document.getElementById('tva').value;
-        var title_length = title.length;
+        var title_update = document.getElementById("title").value
+        var title_length = title_update.length;
        setFormFillingError(false);
        setFormLoading(false);
         if(title_length > 1 && title_length < 255){
-            var book_code_length =book_code.length;
+            var book_code_update = document.getElementById("book_code").value
+            var book_code_length =book_code_update.length;
             if(book_code_length > 1 && book_code_length < 255){
                 if(check_book_code < 1){
-                    var supplier_length = supplier.length;
+                    var supplier_update = document.getElementById("supplier").value;
+                    var supplier_length = supplier_update.length;
                     if(supplier_length > 1 && supplier_length < 255){
-                        var edition_length = edition.length;
+                        var edition_update = document.getElementById("edition").value;
+                        var edition_length = edition_update.length;
                         if(edition_length > 1 && edition_length < 255){
                             var loyalty_discount = document.getElementById('loyalty_discount').value;
                                 if(loyalty_discount != "zero"){
-                                    var author_length = author.length;
+                                    var author_update = document.getElementById("author").value;
+                                    var author_length = author_update.length;
                                     if(author_length > 1 && author_length < 255){
-                                        var price_length = price.length;
+                                        var price_update = document.getElementById("price").value;
+                                        var price_length = price_update.length;
                                         if(price_length > 1 && price_length < 255){
-                                            let floatPrice = parseFloat(price);
+                                            let floatPrice = parseFloat(price_update);
                                             if(!isNaN(floatPrice)){
-                                                var quantity_length = quantity.length;
+                                                var quantity_update = document.getElementById("quantity").value;
+                                                var quantity_length = quantity_update.length;
                                                 if(quantity_length > 1 && quantity_length < 255){
-                                                    let intQuantity = parseInt(quantity);
+                                                    let intQuantity = parseInt(quantity_update);
                                                     if(!isNaN(intQuantity)){
-                                                        console.log("barcode = " +barcode);
-                                                        console.log("quantityparsed = " +intQuantity);
-                                                        var barcode_length = barcode.length;
+                                                        var barcode_update = document.getElementById("barcode").value;
+                                                        console.log("barcode_update = " +barcode_update);
+                                                        var barcode_length = barcode_update.length;
                                                         if(barcode_length > 1 && barcode_length < 255){
                                                             if(check_bar_code < 1){
                                                                 var TVA = document.getElementById('tva').value;
                                                                 if(TVA != "zero"){
                                                                      const book = [{ 
-                                                                         title: title,
-                                                                         book_code: book_code,
-                                                                         supplier : supplier,
-                                                                         edition : edition,
+                                                                         title: title_update,
+                                                                         book_code: book_code_update,
+                                                                         supplier : supplier_update,
+                                                                         edition : edition_update,
                                                                          VAT : TVA,
-                                                                         barcode : barcode,
-                                                                         author : author,
+                                                                         barcode : barcode_update,
+                                                                         author : author_update,
                                                                          quantity : intQuantity,
                                                                          price : floatPrice,
                                                                          loyalty_discount : loyalty_discount
                                                                          }];
                                                                          console.log("book : " +JSON.stringify(book));
-                                                                    
-                                                                   
-                                                                    
-                                                                      e.preventDefault()
-                                                                    //console.log(this.state)
-                                                                    instance.post('http://localhost:3012/clients/books', book)
-                                                                    .then(response => {
+                                                                         console.log("number_of_book = " +number_of_book);
+                                                        
+                                                                      e.preventDefault();
+                                                                    instance.post('http://localhost:3012/books/update/' +number_of_book, book)
+                                                                   .then(response => {
                                                                         console.log(response);
                                                                         window.location.href = "http://localhost:3000/allBooks";
                                                                     }).catch(error =>{
@@ -186,27 +203,27 @@ function NewArticleFunction(){
         }
     }
 
-
     return(
         <>
-            <div>
+         {book.map((val) =>{
+                   return <div key={val.idbooks}>
                 <div  className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
                     <div  className="wrapper wrapper--w680">
                         <div  className="card card-4">
                             <div  className="card-body">
-                                <h2  className="title_new_article">Nouveau livre</h2>
+                                <h2  className="title_new_article">Modifier le livre</h2>
                                 <form>
                                     <div  className="row row-space">
                                         <div  className='row3'>
                                             <div  className="input-group">
                                                 <label  className="label">Titre</label>
-                                                <input  className="input--style-4" type="text" name="title" onChange={e => setTitle(e.target.value)} required />
+                                                <input  className="input--style-4" id="title" type="text" name="title" defaultValue={val.Title} onChange={e => setTitle(e.target.value)} required />
                                             </div>
                                         </div>
                                         <div  className="row-3">
                                             <div  className="input-group">
                                                 <label  className="label">Auteur</label>
-                                                <input  className="input--style-4" type="text" name="author" onChange={e => setAuthor(e.target.value)} required/>
+                                                <input  className="input--style-4" type="text" id="author" defaultValue={val.Author} onChange={e => setAuthor(e.target.value)} required/>
                                             </div>
                                         </div>
                                     </div>
@@ -214,13 +231,13 @@ function NewArticleFunction(){
                                         <div  className='row3'>
                                             <div  className="input-group">
                                                 <label  className="label">Code du livre</label>
-                                                <input  className="input--style-4" type="text" name="book_code"  onChange={e => setBook_code(e.target.value)} onBlurCapture={check_code} required/>
+                                                <input  className="input--style-4" type="text" id="book_code" defaultValue={val.Book_code} onChange={e => setBook_code(e.target.value)} onBlurCapture={check_code} required/>
                                             </div>
                                         </div>
                                         <div  className="row-3">
                                             <div  className="input-group">
                                                 <label  className="label">Prix</label>
-                                                <input  className="input--style-4" type="text" name="price" onChange={e => setPrice(e.target.value)} required/>
+                                                <input  className="input--style-4" type="text" id="price" defaultValue={val.Price} onChange={e => setPrice(e.target.value)} required/>
                                             </div>
                                         </div>
                                         
@@ -229,13 +246,13 @@ function NewArticleFunction(){
                                         <div  className="row-3">
                                             <div  className="input-group">
                                                 <label  className="label">Fournisseur</label>
-                                                <input  className="input--style-4" type="text" name="supplier" onChange={e => setSupplier(e.target.value)} required/>
+                                                <input  className="input--style-4" type="text" id="supplier" defaultValue={val.Supplier} onChange={e => setSupplier(e.target.value)} required/>
                                             </div>
                                         </div>
                                         <div  className="row-3">
                                             <div  className="input-group">
-                                                <label  className="label">Quantité en stok</label>
-                                                <input  className="input--style-4" type="text" name="quantity"  onChange={e => setQuantity(e.target.value)} required/>
+                                                <label  className="label">Quantité en stock</label>
+                                                <input  className="input--style-4" type="text" id="quantity" defaultValue={val.Quantity} onChange={e => setQuantity(e.target.value)} required/>
                                             </div>
                                         </div>
                                     </div>
@@ -243,13 +260,13 @@ function NewArticleFunction(){
                                         <div  className="row-3">
                                             <div  className="input-group">
                                                 <label  className="label">Edition</label>
-                                                <input  className="input--style-4" type="text" name="edition" onChange={e => setEdition(e.target.value)} required/>
+                                                <input  className="input--style-4" type="text" id="edition" defaultValue={val.Edition} onChange={e => setEdition(e.target.value)} required/>
                                             </div>
                                         </div>
                                         <div  className="row-3">
                                             <div  className="input-group">
                                                 <label  className="label">Code barre</label>
-                                                <input  className="input--style-4" type="text" name="barcode" onChange={e => setBarcode(e.target.value)} onBlurCapture={check_barcode} required/>
+                                                <input  className="input--style-4" type="text" id="barcode" defaultValue={val.Barcode} onChange={e => setBarcode(e.target.value)} onBlurCapture={check_barcode} required/>
                                             </div>
                                         </div>
                                     </div>
@@ -257,7 +274,7 @@ function NewArticleFunction(){
                                         <div  className="row-3">
                                             <div  className="input-group">
                                                 <label  className="label">Remise fidélité</label>
-                                                <select id="loyalty_discount" name="loyalty_discount" defaultValue="zero" className="input--style-4 select" required >
+                                                <select id="loyalty_discount" name="loyalty_discount" defaultValue={val.Loyalty_discount} className="input--style-4 select" required >
                                                     <option value="zero"disabled>Choissez un taux remise</option>
                                                     <option>0%</option>
                                                     <option>5%</option>
@@ -286,7 +303,7 @@ function NewArticleFunction(){
                                             <div  className="input-group">
                                                 <label  className="label">Taux de TVA</label>
                                                 <select id="tva" name="VAT" defaultValue="zero" className="input--style-4 select" required >
-                                                    <option value="zero"disabled>Choissez un taux de TVA</option>
+                                                    <option value={val.VAT} disabled>Choissez un taux de TVA</option>
                                                     <option>6%</option>
                                                     <option>21%</option>
                                                 </select>
@@ -304,7 +321,7 @@ function NewArticleFunction(){
                     </div>
                 </div>
             </div>
+            })}
         </>
     )
-}export default NewArticleFunction
-
+}export default UpdateBooks

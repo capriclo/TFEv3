@@ -53,12 +53,42 @@ router.get('/:bookID', (req, res, next)=> {
         res.end();
 })
 
-/*router.deleted('/:bookID', (req, res, next)=> {
-    res.status(200).json({
-        message : 'Book deleted',
-        bookID : req.params.bookID
-    })
-})*/
+router.post('/update/:bookID', (req, res, next) => {
+  const id = req.params.bookID;
+  console.log("id =" +id);
+  console.log("req.body = " +JSON.stringify(req.body[0].title));
+
+  const book = {
+    title: req.body[0].title,
+    book_code: req.body[0].book_code,
+    supplier : req.body[0].supplier,
+    edition : req.body[0].edition,
+    VAT : req.body[0].VAT,
+    barcode : req.body[0].barcode,
+    author : req.body[0].author,
+    quantity : req.body[0].quantity,
+    price : req.body[0].price,
+    loyalty_discount : req.body[0].loyalty_discount
+  };
+  console.log("book = " +JSON.stringify(book));
+  
+  res.status(200).json({
+      message: 'Handling UPDATE request to /books',
+      UpdateBook: id
+  })
+  res.end();
+  
+  var data = [book.title, book.book_code, book.supplier, book.edition, book.VAT, book.barcode, book.author, book.quantity, book.price, book.loyalty_discount, id];
+  console.log("data = " +JSON.stringify(data));
+  connection.query("UPDATE books SET Title=?, Book_code=?, Supplier=?, Edition=?, VAT=?, Barcode=?, Author=?, Quantity=?, Price=?, Loyalty_discount=? WHERE idbooks = ?", data,
+  (err, book, field) =>{
+      if (err) {
+          return console.error('error: ' + err.message);
+        }
+
+  })
+  
+})
 
 router.get('/delete/:bookID', (req, res, next) => {
     const id = req.params.bookID;
